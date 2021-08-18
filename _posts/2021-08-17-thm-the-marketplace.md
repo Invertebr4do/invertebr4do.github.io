@@ -10,7 +10,7 @@ header:
   icon: /assets/images/tryhackme.png
 categories:
   - tryhackme
-  - infosec
+  - bash scripting
 tags:
   - bash scripting
   - web
