@@ -19,6 +19,7 @@ tags:
   - pivoting
   - chisel
   - docker
+  - lxd
 ---
 
 Esta es una máquina hard según la plataforma
