@@ -10,6 +10,7 @@ header:
   icon: /assets/images/tryhackme.png
 categories:
   - tryhackme
+  - autopwm
   - scripting
 tags:
   - python scripting
