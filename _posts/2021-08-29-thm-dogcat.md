@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Dogcat (AutoPWM) - Try Hack Me
-excerpt: "En esta máquina se abusa de un local file inclusion para efectuar un log poisoning logrando RCE luego de modificar el user agent inyectando instrucciones maliciosas"
+excerpt: "En esta máquina se abusa de un local file inclusion para efectuar un log poisoning logrando RCE luego de modificar el user agent inyectando instrucciones maliciosas, pero en este post te muestro un pequeño script autopwm hecho en python, el cual nos automatiza la intrusión y escalada de privilegios para convertirnos en root"
 date: 2021-08-29
 classes: wide
 header:
