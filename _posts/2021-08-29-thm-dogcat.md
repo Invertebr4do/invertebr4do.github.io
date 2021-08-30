@@ -39,7 +39,7 @@ Se modifica el payload y la url:
 ```python
 #!/usr/bin/python3
 
-import signal, time, os
+import signal, time
 from pwn import *
 
 def def_handler(sig, frame):
