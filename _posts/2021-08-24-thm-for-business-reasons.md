@@ -247,7 +247,7 @@ Luego de esto seteamos las dimensiones correctas de la shell, ya que así como e
 Vemos las dimensiones de nuestra pantalla ejecutando en una terminal normal lo siguiente:
 
 ```bash
-stty size
+~$> stty size
 ```
 ```bash
 40 123
