@@ -247,19 +247,13 @@ Luego de esto seteamos las dimensiones correctas de la shell, ya que así como e
 Vemos las dimensiones de nuestra pantalla ejecutando en una terminal normal lo siguiente:
 
 ```bash
-stty -a
+stty size
 ```
 ```bash
-speed 38400 baud; rows 40; columns 123; line = 0;
-intr = ^C; quit = ^\; erase = ^H; kill = ^U; eof = ^D; eol = <undef>; eol2 = <undef>; swtch = <undef>; start = ^Q;
-stop = ^S; susp = ^Z; rprnt = ^R; werase = ^W; lnext = ^V; discard = ^O; min = 1; time = 0;
--parenb -parodd -cmspar cs8 -hupcl -cstopb cread -clocal -crtscts
--ignbrk -brkint -ignpar -parmrk -inpck -istrip -inlcr -igncr icrnl -ixon -ixoff -iuclc -ixany -imaxbel iutf8
-opost -olcuc -ocrnl onlcr -onocr -onlret -ofill -ofdel nl0 cr0 tab0 bs0 vt0 ff0
-isig icanon iexten echo echoe echok -echonl -noflsh -xcase -tostop -echoprt echoctl echoke -flusho -extproc
+40 123
 ```
 
-Vemos en la primera linea las filas y columnas (en mi caso, rows 40, columns 123) y las seteamos en la reverse shell
+Con esto vemos las filas y columnas (en mi caso, rows 40, columns 123) y las seteamos en la reverse shell
 
 ```bash
 www-data@3d56c33f6dd7:/var/www/html/wp-content/themes/twentyseventeen$ stty rows 40 columns 123
