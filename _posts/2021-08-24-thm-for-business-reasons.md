@@ -226,44 +226,7 @@ bash: cannot set terminal process group (1): Inappropriate ioctl for device
 bash: no job control in this shell
 www-data@3d56c33f6dd7:/var/www/html/wp-content/themes/twentyseventeen$
 ```
-Antes de seguir upgradeamos la shell para obtener una tty full interactiva (esto nos permitira hacer ctrl_c, etc)
-
-```bash
-www-data@3d56c33f6dd7:/var/www/html/wp-content/themes/twentyseventeen$ script /dev/null -c bash
-Script started, file is /dev/null
-www-data@3d56c33f6dd7:/var/www/html/wp-content/themes/twentyseventeen$ ^Z
-zsh: suspended  nc -nlvp 443
-```
-```bash
-~$> stty raw -echo; fg
-[1]  + continued  nc -nlvp 443
-                              reset
-reset: unknown terminal type unknown
-Terminal type? xterm
-```
-
-Luego de esto seteamos las dimensiones correctas de la shell, ya que así como esta, no ocupa toda la pantalla
-
-Vemos las dimensiones de nuestra pantalla ejecutando en una terminal normal lo siguiente:
-
-```bash
-~$> stty size
-```
-```bash
-40 123
-```
-
-Con esto vemos las filas y columnas (en mi caso, rows 40, columns 123) y las seteamos en la reverse shell
-
-```bash
-www-data@3d56c33f6dd7:/var/www/html/wp-content/themes/twentyseventeen$ stty rows 40 columns 123
-```
-Por último exportamos las variables TERM y SHELL para que valgan xterm y bash respectivamente
-
-```bash
-www-data@3d56c33f6dd7:/var/www/html/wp-content/themes/twentyseventeen$ export TERM=xterm
-www-data@3d56c33f6dd7:/var/www/html/wp-content/themes/twentyseventeen$ export SHELL=bash
-```
+Antes de seguir upgradeamos la shell para obtener una tty full interactiva, como lo muestro en este [post](https:invertebr4do.github.io/tratamiento-de-tty) (esto nos permitira hacer ctrl_c, ctrl_l, etc)
 
 Ahora podemos continuar con una shell más comoda
 
