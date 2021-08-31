@@ -11,6 +11,7 @@ header:
 categories:
   - tryhackme
   - scripting
+  - writeup
 tags:
   - bash scripting
   - autopwm
