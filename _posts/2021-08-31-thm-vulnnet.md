@@ -310,7 +310,7 @@ else
 	uploadYgainShell
 fi
 ```
-Siguiendo con la escalada de privilegios para convertirnos en el usuario server-management, primero hacemos un tratamiento de la tty como ya lo expliqué en [este](google.com) post, esto básicamente para tener una tty full interactiva
+Siguiendo con la escalada de privilegios para convertirnos en el usuario server-management, primero hacemos un tratamiento de la tty como ya lo expliqué en [este](https://invertebr4do.github.io/tratamiento-de-tty/) post, esto básicamente para tener una tty full interactiva
 Encontramos un directorio que puede ser de mucha utilidad: ```/var/backups``` en este vemos un ```ssh-backup.tar.gz```
 
 Nos metemos en /tmp
