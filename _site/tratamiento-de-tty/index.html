@@ -1,0 +1,501 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Tratamiento de la TTY para obtener shells full interactivas - Invertebrado</title>
+<meta name="description" content="Cuando logramos obtener RCE en algún sistema uno  de nuestros principales objetivos es mantener la conección, ya que sería un problema que, por ejemplo, al ejecutar ctrl_c para cancelar un proceso cerremos la conección sin querer, esto, a demás de obtener otros beneficios, lo solucionamos haciendo un tratamiento de la TTY">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Invertebrado">
+<meta property="og:title" content="Tratamiento de la TTY para obtener shells full interactivas">
+<meta property="og:url" content="http://localhost:4000/tratamiento-de-tty/">
+
+
+  <meta property="og:description" content="Cuando logramos obtener RCE en algún sistema uno  de nuestros principales objetivos es mantener la conección, ya que sería un problema que, por ejemplo, al ejecutar ctrl_c para cancelar un proceso cerremos la conección sin querer, esto, a demás de obtener otros beneficios, lo solucionamos haciendo un tratamiento de la TTY">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/Shell.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-08-27T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/tratamiento-de-tty/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Invertebrado",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Invertebrado Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/masthead.png" alt=""></a>
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Tratamiento de la TTY para obtener shells full interactivas</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/trocado.png" alt="Invertebrado" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Invertebrado</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Pentester, HackTheBox, <br>TryHackMe, Red Team
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Colombia</span>
+        </li>
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:invertebr4do@gmail.com">
+            <meta itemprop="email" content="invertebr4do@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://keybase.io/invertebrado" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fas fa-fw fa-key" aria-hidden="true"></i> Keybase
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://twitter.com/Invertebr4do" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/Invertebr4do" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Tratamiento de la TTY para obtener shells full interactivas">
+    <meta itemprop="description" content="Cuando logramos obtener RCE en algún sistema uno  de nuestros principales objetivos es mantener la conección, ya que sería un problema que, por ejemplo, al ejecutar ctrl_c para cancelar un proceso cerremos la conección sin querer, esto, a demás de obtener otros beneficios, lo solucionamos haciendo un tratamiento de la TTY">
+    <meta itemprop="datePublished" content="August 27, 2021">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Tratamiento de la TTY para obtener shells full interactivas
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2021-08-27T00:00:00-05:00">August 27, 2021 </time>&emsp;
+          
+          
+        </p>
+        <p align="center">
+<img src="/assets/images/tratamiento-de-tty/img_header.png" />
+</p>
+
+<p>Una vez obtenemos una reverse shell necesitamos estar comodos con una <strong>TTY</strong> interactiva para evitar problemas, como <strong>cerrar la conección</strong> sin querer o simplemente para poder <strong>desplazarnos</strong> con las flechas, poder usar el <strong>tab</strong> para el auto completado de rutas, etc.
+Esto es muy sencillo de lograr, simplemente debemos de hacer un tratamiento de la tty siguiendo estos pasos:</p>
+
+<p>Empezamos en la reverse shell obtenida</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>script /dev/null <span class="nt">-c</span> bash
+Script started, file is /dev/null
+</code></pre></div></div>
+<p>Luego de esto presionamos <strong>ctrl_z</strong> para suspender la shell</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@vulnnet:/<span class="nv">$ </span>^Z
+zsh: suspended  nc <span class="nt">-nlvp</span> 443
+</code></pre></div></div>
+
+<p>Ahora resetearemos la configuración de la shell que dejamos en segundo plano indicando <strong>reset</strong> y <strong>xterm</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> <span class="nb">stty </span>raw <span class="nt">-echo</span><span class="p">;</span> <span class="nb">fg</span>
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>1]  + continued  nc <span class="nt">-nlvp</span> 443
+                              reset
+reset: unknown terminal <span class="nb">type </span>unknown
+Terminal <span class="nb">type</span>? xterm
+</code></pre></div></div>
+<p>Exportamos las variables de entorno <strong>TERM</strong> y <strong>SHELL</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">export TERM=xterm</code> -&gt; Debemos hacer esto ya que a pesar de haberle indicado que queríamos una <strong>xterm</strong> al momento de reiniciarlo la variable de entorno <strong>TERM</strong> vale <strong>dump</strong></li>
+  <li><code class="language-plaintext highlighter-rouge">export SHELL=bash</code> -&gt; Para que nuestra shell sea una bash</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@vulnnet:/<span class="nv">$ </span><span class="nb">export </span><span class="nv">TERM</span><span class="o">=</span>xterm
+www-data@vulnnet:/<span class="nv">$ </span><span class="nb">export </span><span class="nv">SHELL</span><span class="o">=</span>bash
+</code></pre></div></div>
+<p>Ya con esto hecho tendríamos una <strong>TTY</strong> full interactiva, pero falta una cosa para que sea lo más comoda posible, setear las filas y columnas, esto para poder ocupar toda nuestra pantalla ya que en este momento solo podemos usar una porción de esta
+Vemos el tamaño de nuestra shell en una consola normal</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> ssty size
+40 123
+</code></pre></div></div>
+<p>Y las seteamos en la reverse shell <strong>(en mi caso 40 filas y 123 columnas)</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@vulnnet:/<span class="nv">$ </span><span class="nb">stty </span>rows 40 columns 123
+</code></pre></div></div>
+<p>Y listo!, ya podemos disfrutar de una shell totalmente interactiva y muy comoda para continuar rompiendo</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#bash" class="page__taxonomy-item" rel="tag">bash</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#shell" class="page__taxonomy-item" rel="tag">shell</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#tty" class="page__taxonomy-item" rel="tag">tty</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#bash" class="page__taxonomy-item" rel="tag">bash</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#tryhackme" class="page__taxonomy-item" rel="tag">tryhackme</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-08-27T00:00:00-05:00">August 27, 2021</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/thm-for-business-reasons/" class="pagination--pager" title="For Business Reasons - Try Hack Me
+">Previous</a>
+    
+    
+      <a href="/thm-dogcat/" class="pagination--pager" title="Dogcat (AutoPWM) - Try Hack Me
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Invertebrado</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
