@@ -1,7 +1,7 @@
 ---
 layout: single
 title: The Marketplace - Try Hack Me
-excerpt: "En esta máquina empezamos reconociendo una web con algunas publicaciones, pasando desde un XSS hasta obtener RCE"
+excerpt: "En esta máquina empezamos reconociendo una web con algunas publicaciones, pasando desde un XSS a una inyección sql, obteniendo un hash de una clave que posteriormente crackeamos para conectarnos por ssh obteniendo RCE para finalmete convertirnos en root abusando del grupo docker de nuestro usuario"
 date: 2021-08-17
 classes: wide
 header:
