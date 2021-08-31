@@ -226,7 +226,7 @@ bash: cannot set terminal process group (1): Inappropriate ioctl for device
 bash: no job control in this shell
 www-data@3d56c33f6dd7:/var/www/html/wp-content/themes/twentyseventeen$
 ```
-Antes de seguir upgradeamos la shell para obtener una tty full interactiva, como lo muestro en este [post](https:invertebr4do.github.io/tratamiento-de-tty) (esto nos permitira hacer ctrl_c, ctrl_l, etc)
+Antes de seguir upgradeamos la shell para obtener una tty full interactiva, como lo muestro en este [post](https://invertebr4do.github.io/tratamiento-de-tty/) (esto nos permitira hacer ctrl_c, ctrl_l, etc)
 
 Ahora podemos continuar con una shell más comoda
 
