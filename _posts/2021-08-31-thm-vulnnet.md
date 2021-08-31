@@ -1,7 +1,7 @@
 ---
 layout: single
 title: VulnNet - Try Hack Me
-excerpt: "En esta máquina empezamos encontrando entre algunos subdominios ocultos uno donde necesitamos credenciales para acceder, conseguimos las credenciales de acceso gracias a un LFI por medio de un parametro de lde la web mal sanitizado, subimos una shell al servidor consiguiendo RCE como el usuario www-data, luego de esto escalamos privilegios convirtiendonos en el usuario server-management luego de encontrar una id_rsa y finalmente logrando convertirnos en root abusando de un wildcard con tar en una tarea cron"
+excerpt: "En esta máquina empezamos encontrando entre algunos subdominios ocultos uno donde necesitamos credenciales para acceder, conseguimos las credenciales de acceso gracias a un LFI por medio de un parametro de lde la web mal sanitizado, subimos una shell al servidor consiguiendo RCE como el usuario www-data, luego de esto escalamos privilegios convirtiendonos en el usuario server-management luego de encontrar una id_rsa y finalmente logrando convertirnos en root abusando de una tarea cron gracias a un wildcard"
 date: 2021-08-31
 classes: wide
 header:
