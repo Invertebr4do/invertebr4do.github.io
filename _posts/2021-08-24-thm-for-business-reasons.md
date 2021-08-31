@@ -11,7 +11,7 @@ header:
 categories:
   - tryhackme
   - scripting
-  - infosec
+  - writeup
 tags:
   - python scripting
   - web
