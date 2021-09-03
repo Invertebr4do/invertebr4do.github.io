@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Dogcat (AutoPWM) - Try Hack Me
+title: Dogcat (AutoPWN) - Try Hack Me
 excerpt: "En esta máquina se abusa de un local file inclusion para efectuar un log poisoning logrando RCE luego de modificar el user agent inyectando instrucciones maliciosas, pero en este post te muestro un pequeño script autopwm hecho en python, el cual nos automatiza la intrusión y escalada de privilegios para convertirnos en root"
 date: 2021-08-29
 classes: wide
@@ -10,11 +10,11 @@ header:
   icon: /assets/images/tryhackme.png
 categories:
   - tryhackme
-  - autopwm
+  - autopwn
   - scripting
 tags:
   - python scripting
-  - autopwm
+  - autopwn
   - web
   - lfi
   - log poisoning
@@ -25,7 +25,7 @@ tags:
 <img src="/assets/images/thm-autopwm-dogcat/img_header.png">
 </p>
 
-Esta es una máquina de dificultad media bastante sencilla, así que quise hacer un script autopwm que automatizara tanto la intrusión como la escalada de privilegios
+Esta es una máquina de dificultad media bastante sencilla, así que quise hacer un script autopwn que automatizara tanto la intrusión como la escalada de privilegios
 
 Antes de usarlo se debe de ejecutar el siguite comando, para luego introducir el otput en el script:
 
@@ -82,7 +82,7 @@ if __name__ == '__main__':
 Y una vez ejecutado el script obtenemos shell como root:
 
 ```bash
-~$>./Dogcat-AutoPWM.py
+~$>./Dogcat-AutoPWn.py
 ```
 ```bash
 [*] Gaining shell as www-data user
