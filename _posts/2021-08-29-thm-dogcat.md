@@ -25,7 +25,14 @@ tags:
 <img src="/assets/images/thm-autopwm-dogcat/img_header.png">
 </p>
 
-Esta es una máquina de dificultad media bastante sencilla, así que quise hacer un script autopwn que automatizara tanto la intrusión como la escalada de privilegios
+Esta es una máquina de dificultad media bastante sencilla, así que quise hacer un script autopwn que automatizara tanto la intrusión como la escalada de privilegios.<br>
+Dejaré el proceso escrito y en video para que todo se entienda.
+
+<p align="center">
+<video controls style="width: 80%; height: 100%; margin-right: 10px; margin-bottom: 10px;">
+  <source src="/videos/Dogcat-autoPWN.mp4" type="video/mp4">
+</video>
+</p>
 
 Antes de usarlo se debe de ejecutar el siguite comando, para luego introducir el otput en el script:
 
@@ -82,7 +89,7 @@ if __name__ == '__main__':
 Y una vez ejecutado el script obtenemos shell como root:
 
 ```bash
-~$>./Dogcat-AutoPWn.py
+~$>./Dogcat-AutoPWN.py
 ```
 ```bash
 [*] Gaining shell as www-data user
