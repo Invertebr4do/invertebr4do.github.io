@@ -13,6 +13,7 @@ categories:
   - scripting
   - writeup
 tags:
+  - linux
   - python scripting
   - web
   - brute force
