@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Schooled - Hack The Box
-excerpt: "En esta máquina de dificultad media de **HTB**, empezamos encontrando un subdominio moodle en una web haciendo **fuzzing**, para luego crear un usuario, efectuar un **cookie hijacking**, aprovecharnos de un exploit de github para conseguir **RCE** por medio de un **CVE** de moodle, una vez dentro, encontramos un archivo con credenciales validas para conectarnos por **mysql**, vemos un usuario administrador con el hash de su contraseña, lo crackeamos con **john**, nos conectamos por ssh y nos aprovechamos de un permiso que tenemos para ejecutar **pkg** como **root**, para finalmente escalar privilegios"
+excerpt: "En esta máquina de dificultad media de HTB, empezamos encontrando un subdominio moodle en una web haciendo fuzzing, para luego crear un usuario, efectuar un cookie hijacking por medio de un XSS, aprovecharnos de un exploit de github para conseguir RCE por medio de un CVE de moodle, una vez dentro, encontramos un archivo con credenciales validas para conectarnos por mysql, vemos un usuario administrador con el hash de su contraseña, lo crackeamos con john, nos conectamos por ssh y nos aprovechamos de un permiso que tenemos para ejecutar pkg como root, para finalmente escalar privilegios"
 date: 2021-09-15
 classes: wide
 header:
@@ -17,6 +17,7 @@ tags:
   - web
   - fuzzing
   - moodle
+  - xss
   - CVE-2020-14321
   - mysql
   - pkg
