@@ -319,7 +319,7 @@ bash: cannot set terminal process group (2027): Can't assign requested address
 bash: no job control in this shell
 [www@Schooled /usr/local/www/apache24/data/moodle/blocks/rce/lang/en]$
 ```
-No podemos hacer un **tratamiento de la tty**, pero si podemos definir las variables **TERM** y **SHELL**, para mejorar un poco la movilidad
+No podemos hacer un [tratamiento de la tty](https://invertebr4do.github.io/tratamiento-de-tty/), pero si podemos definir las variables **TERM** y **SHELL**, para mejorar un poco la movilidad
 
 ```bash
 [www@Schooled /usr/local/www/apache24/data/moodle/blocks/rce/lang/en]$ export TERM=xterm
