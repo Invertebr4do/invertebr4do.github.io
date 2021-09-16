@@ -13,8 +13,9 @@ categories:
   - scripting
   - writeup
 tags:
+  - linux
   - bash scripting
-  - autopwm
+  - autopwn
   - web
   - lfi
   - wildcard
