@@ -34,7 +34,7 @@ Script started, file is /dev/null
 Luego de esto presionamos **ctrl_z** para suspender la shell
 
 ```bash
-www-data@vulnnet:/$ ^Z
+www-data@host:/$ ^Z
 zsh: suspended  nc -nlvp 443
 ```
 
@@ -55,8 +55,8 @@ Exportamos las variables de entorno **TERM** y **SHELL**
   - ```export SHELL=bash``` -> Para que nuestra shell sea una bash
 
 ```bash
-www-data@vulnnet:/$ export TERM=xterm
-www-data@vulnnet:/$ export SHELL=bash
+www-data@host:/$ export TERM=xterm
+www-data@host:/$ export SHELL=bash
 ```
 Ya con esto hecho tendríamos una **TTY** full interactiva, pero falta una cosa para que sea lo más comoda posible, setear las filas y columnas, esto para poder ocupar toda nuestra pantalla ya que en este momento solo podemos usar una porción de esta
 Vemos el tamaño de nuestra shell en una consola normal
@@ -68,6 +68,6 @@ Vemos el tamaño de nuestra shell en una consola normal
 Y las seteamos en la reverse shell **(en mi caso 40 filas y 123 columnas)**
 
 ```bash
-www-data@vulnnet:/$ stty rows 40 columns 123
+www-data@host:/$ stty rows 40 columns 123
 ```
 Y listo!, ya podemos disfrutar de una shell totalmente interactiva y muy comoda para continuar rompiendo
