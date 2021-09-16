@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Tratamiento de la TTY para obtener shells full interactivas
+title: Tratamiento de la TTY
 excerpt: "Cuando logramos obtener RCE en algún sistema uno  de nuestros principales objetivos es mantener la conección, ya que sería un problema que, por ejemplo, al ejecutar ctrl_c para cancelar un proceso cerremos la conección sin querer, esto, a demás de obtener otros beneficios, lo solucionamos haciendo un tratamiento de la TTY"
 date: 2021-08-27
 classes: wide
