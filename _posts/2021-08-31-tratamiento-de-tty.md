@@ -9,7 +9,7 @@ header:
   teaser_home_page: true
   icon: /assets/images/tratamiento-de-tty/Bash.png
 categories:
-  - tryhackme
+  - tutorial
   - bash
 tags:
   - linux
