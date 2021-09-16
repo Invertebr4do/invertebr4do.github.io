@@ -13,6 +13,7 @@ categories:
   - autopwn
   - scripting
 tags:
+  - linux
   - python scripting
   - autopwn
   - web
