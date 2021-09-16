@@ -12,6 +12,7 @@ categories:
   - tryhackme
   - bash
 tags:
+  - linux
   - tty
   - shell
   - bash
