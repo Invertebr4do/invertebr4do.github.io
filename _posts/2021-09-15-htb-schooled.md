@@ -11,8 +11,9 @@ header:
 categories:
   - hackthebox
   - cve
-  - freebsd
+  - writeup
 tags:
+  - freebsd
   - web
   - fuzzing
   - moodle
