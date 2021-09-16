@@ -13,6 +13,7 @@ categories:
   - scripting
   - writeup
 tags:
+  - linux
   - bash scripting
   - web
   - sqli
