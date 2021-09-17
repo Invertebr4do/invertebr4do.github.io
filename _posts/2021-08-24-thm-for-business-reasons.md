@@ -93,6 +93,8 @@ Viendo un poco la página encontramos un usuario (sysadmin), el cual se intuye q
 
 Entonces Proseguí aplicando fuerza bruta al panel de login de wordpress, se podría haber hecho con herramientas como burpsuite, pero yo preferí hacerlo con el siguiente script en python3:
 
+> Este script es un poco lento, si quieres optimización al máximo usa [mi herramienta](https://github.com/Invertebr4do/BrutePress) y dejame una estrella **:)**
+
 ```python
 #!/usr/bin/python3
 
