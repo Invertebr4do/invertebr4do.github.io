@@ -39,8 +39,6 @@ Esta utilidad está pensada para que sea completamente automática, esto te perm
 
 [![Vista general](https://github.com/Invertebr4do/EASY-PWM/blob/main/WorkEnviroment2.png?raw=true "Vista general")](https://github.com/Invertebr4do/EASY-PWM/blob/main/WorkEnviroment.png?raw=true "Vista consola")
 
-[![Vista consola](https://github.com/Invertebr4do/EASY-PWM/blob/main/WorkEnviroment.png?raw=true "Vista consola")](https://github.com/Invertebr4do/EASY-PWM/blob/main/WorkEnviroment.png?raw=true "Vista consola")
-
 <p align="center">
 <img src="/assets/images/github-tool-easy-pwm/WorkEnviroment.png">
 </p>
