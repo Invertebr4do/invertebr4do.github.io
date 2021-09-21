@@ -67,7 +67,7 @@ Esta utilidad está pensada para que sea completamente automática, esto te perm
 - **flameshot**
 
 <hr>
-<b>[INSTALA Y USA EASY-PWM](https://github.com/Invertebr4do/MM-WN722N)</b>
+<b>[INSTALA Y USA EASY-PWM](https://github.com/Invertebr4do/EASY-PWM)</b>
 <hr>
 
 ## Tutorial para la configuración manual:
