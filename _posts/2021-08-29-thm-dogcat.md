@@ -31,7 +31,7 @@ Dejaré el proceso escrito y en video para que todo se entienda.
 
 <p align="center">
 <video controls style="width: 80%; height: 100%; margin-right: 10px; margin-bottom: 10px;">
-  <source src="/videos/Dogcat-autoPWN.mp4" type="video/mp4">
+  <source src="/videos/dogcat/Dogcat-autoPWN.mp4" type="video/mp4">
 </video>
 </p>
 
