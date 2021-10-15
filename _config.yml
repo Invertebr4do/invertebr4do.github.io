@@ -270,7 +270,7 @@ defaults:
     values:
       layout: single
       author_profile: true
-      read_time: false
-      comments: false
+      read_time: true
+      comments: true
       share: false
       related: true
