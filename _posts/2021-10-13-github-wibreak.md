@@ -56,7 +56,7 @@ Como todos sus otros parametros (```-a```, ```-i```, ```-m```, ```-t```, ```-h``
 
 - ```-m``` **~>** Con este parametro podemos indicar la dicrección **MAC** con la que querramos que nuestra tarjeta de red trabaje (*Este parametro es pocional*)
 
-- ```-t``` **~>** Usando este parametro podremos inicar el tiempo en segundos, que querramos que dure el ataque (**Solo funciona con el ataque DESTROY**)
+- ```-t``` **~>** Usando este parametro podremos indicar el tiempo en segundos, que querramos que dure el ataque (**Solo funciona con el ataque DESTROY**)
 
 <hr>
  - <b>[INSTALA Y USA WIBREAK](https://github.com/Invertebr4do/WiBreak)</b>
