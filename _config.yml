@@ -19,7 +19,7 @@ locale                   : "en-US"
 title                    : "Invertebrado | Hacking - Ciberseguridad"
 title_separator          : "-"
 name                     : "Invertebrado"
-description              : "Posts about security, CTFs and networking"
+description              : "Posts sobre ciberseguridad y hacking ético"
 url                      : "https://Invertebr4do.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "slemire/slemire.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -103,7 +103,7 @@ analytics:
 author:
   name             : "Invertebrado"
   avatar           : "/assets/images/Perfil.png"
-  bio              : "HackTheBox, TryHackMe, <br>Tools, Tutorials"
+  bio              : "HackTheBox, TryHackMe, <br>Herramientas, Tutoriales"
   location         : "Colombia"
   email            : "invertebr4do@gmail.com"
   uri              :
@@ -132,7 +132,7 @@ author:
   xing             :
   youtube          : # "https://youtube.com/c/Invertebr4do"
   links:
-    - label: "Donate"
+    - label: "Donar"
       icon: "fab fa-fw fa-paypal"
       url: "https://www.paypal.com/paypalme/Invertebrado"
 
