@@ -29,7 +29,7 @@ tags:
 <img src="/assets/images/htb-writeup-schooled/img_header.png">
 </p>
 
-Como siempre empezamos con la faze de reconocimiento, haciendo un escaneo de puertos con **nmap**
+Como siempre empezamos con la fase de reconocimiento, haciendo un escaneo de puertos con **nmap**
 
 ```bash
 ~$> sudo nmap -p- -sS --min-rate 4000 --open -vvv -n -Pn 10.10.10.234
