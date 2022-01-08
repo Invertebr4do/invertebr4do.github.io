@@ -2,7 +2,7 @@
 layout: single
 title: Previse - Hack The Box
 excerpt: "En esta máquina fácil de HTB, empezamos con un panel de login, en el cual logramos ingresar luego de haber registrado un usuario, forzando con Burpsuite un 200 Ok en la respuesta del servidor, para luego inyectar un comando en un parametro vulnerable de la web, con el que conseguimos RCE, nos conectamos a una base de datos de mysql con credenciales previamente encontradas, extraemos el hash de un usuario válido del sistema, lo crackeamos y nos conectamos con ssh para posteriormente efectuar un Path-Hijacking con un script que podemos ejecutar como el usuario root, logrando así escalar privilegios máximos"
-date: 2021-12-23
+date: 2022-01-08
 classes: wide
 header:
   teaser: /assets/images/htb-writeup-previse/Previse.png
