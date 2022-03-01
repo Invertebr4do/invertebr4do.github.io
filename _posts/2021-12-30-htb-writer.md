@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Writer - Hack The Box
-excerpt: "En esta máquina de dificultad fácil de HTB, iniciamos reconociendo una web donde podemos descargar capturas de trafico, las cuales posteriormente analizamos con tshark, encontrando credenciales en texto plano, para luego conectarnos por ssh, conseguir la flag user y ganar acceso root explotando una capabilitie mal asignada"
+excerpt: "En esta máquina de dificultad media de HTB, iniciamos reconociendo una web donde podemos descargar capturas de trafico, las cuales posteriormente analizamos con tshark, encontrando credenciales en texto plano, para luego conectarnos por ssh, conseguir la flag user y ganar acceso root explotando una capabilitie mal asignada"
 date: 2021-12-30
 classes: wide
 header:
