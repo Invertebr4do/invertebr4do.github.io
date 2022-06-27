@@ -88,7 +88,7 @@ Para hacer esto, solo tenemos que repetir los primeros pasos para importar un ar
 <img src="/assets/images/software-audacity/img10.png">
 </p>
 
-- Ahora solo quedaría exportarlo en **File** ~» **Export** y elegir el typo de audio que deseemos (*en mi caso mp3*).
+- Ahora solo quedaría exportarlo en **File** ~» **Export** y elegir el tipo de audio que deseemos (*en mi caso mp3*).
 
 <p align="center">
 <img src="/assets/images/software-audacity/img11.png">
