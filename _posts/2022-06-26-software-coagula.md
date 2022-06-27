@@ -78,5 +78,5 @@ Ahora solo nos falta exportar el audio que generamos en el paso anterior, a un a
 <img src="/assets/images/software-coagula/img7.png">
 </p>
 
-## VISUALIZAR LA IMAGEN EN EL ESPECTOGRAMA
+## VISUALIZAR LA IMAGEN EN EL ESPECTROGRAMA
 Si te interesa ver algunas formas de poder ver la imagen que anteriormente pasamos a audio, además de saber de que manera podemos insertarla en otro archivo de audio, como una canción, puedes leer [este otro post](https://invertebr4do.github.io/software-audacity).
