@@ -32,32 +32,32 @@ Ahora empecemos.
 
 > Web que usé para generar la imagen con texto: [imageonline](https://text.imageonline.co/es/).
 
-1. Damos click en **File** y **Open image**.
+ - Damos click en **File** y **Open image**.
 
 <p align="center">
 <img src="/assets/images/software-coagula/img1.png">
 </p>
 
-2. Aquí seleccionamos la imagen que queramos convertir a audio (*no tiene que ser un texto, pero en mi opinión, es lo más sencillo*).
+ - Aquí seleccionamos la imagen que queramos convertir a audio (*no tiene que ser un texto, pero en mi opinión, es lo más sencillo*).
 
 <p align="center">
 <img src="/assets/images/software-coagula/img2.png">
 </p>
 
 ## RENDERIZACIÓN DE LA IMAGEN
-1. Ya que tenemos la imagen abierta, vamos a **Tools** y **Render Options**.
+ - Ya que tenemos la imagen abierta, vamos a **Tools** y **Render Options**.
 
 <p align="center">
 <img src="/assets/images/software-coagula/img3.png">
 </p>
 
-2. Ahora damos en **Render** y deberíamos escuchar un sonido un poco molesto.
+ - Ahora damos en **Render** y deberíamos escuchar un sonido un poco molesto.
 
 <p align="center">
 <img src="/assets/images/software-coagula/img4.png">
 </p>
 
-3. Luego de esto, vamos a **Sound** y **Render Without Blue** (ahora deberíamos escuchar otro sonido similar al anterior, pero un poco más agudo).
+ - Luego de esto, vamos a **Sound** y **Render Without Blue** (ahora deberíamos escuchar otro sonido similar al anterior, pero un poco más agudo).
 
 <p align="center">
 <img src="/assets/images/software-coagula/img5.png">
@@ -66,13 +66,13 @@ Ahora empecemos.
 ## EXPORTAR ARCHIVO WAV
 Ahora solo nos falta exportar el audio que generamos en el paso anterior, a un archivo wav.
 
-1. Clickeamos en **File** y **Save Sound As**.
+ - Clickeamos en **File** y **Save Sound As**.
 
 <p align="center">
 <img src="/assets/images/software-coagula/img6.png">
 </p>
 
-2. Ahora solo elegimos la ruta donde lo queremos guardar y el nombre con el que queremos exportar el archivo.
+ - Ahora solo elegimos la ruta donde lo queremos guardar y el nombre con el que queremos exportar el archivo.
 
 <p align="center">
 <img src="/assets/images/software-coagula/img7.png">
