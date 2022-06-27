@@ -1,13 +1,13 @@
 ---
 layout: single
 title: Coagula - Esteganografía
-excerpt: "En este post veremos cómo usando Coagula (un sintetizador de imágenes), un generador de sonido a partir de una imagen, podemos ocultar mensajes en archivos de audio."
+excerpt: "En este post veremos cómo usando Coagula (un sintetizador de imágenes), para generar sonido a partir de una imagen, logrando ocultar mensajes en archivos de audio."
 date: 2022-06-26
 classes: wide
 header:
   teaser: /assets/images/software-coagula/Coagula.png
   teaser_home_page: true
-  icon: /assets/images/software.png
+  icon: /assets/images/steganography.png
 categories:
   - esteganografía
   - software
