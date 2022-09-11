@@ -51,14 +51,15 @@ Terminal type? xterm
 ```
 Exportamos las variables de entorno **TERM** y **SHELL**
 
-  - ```export TERM=xterm``` -> Debemos hacer esto ya que a pesar de haberle indicado que queríamos una **xterm** al momento de reiniciarlo la variable de entorno **TERM** vale **dump**
-  - ```export SHELL=bash``` -> Para que nuestra shell sea una bash
+  - ```export TERM=xterm``` -> Debemos hacer esto ya que a pesar de haberle indicado que queríamos una **xterm** al momento de reiniciarlo la variable de entorno **TERM** vale **dump** (Se usa esta variable para poder usar los atajos de teclado).
+  - ```export SHELL=bash``` -> Para que nuestra shell sea una bash.
 
 ```bash
 www-data@host:/$ export TERM=xterm
 www-data@host:/$ export SHELL=bash
 ```
 Ya con esto hecho tendríamos una **TTY** full interactiva, pero falta una cosa para que sea lo más comoda posible, setear las filas y columnas, esto para poder ocupar toda nuestra pantalla ya que en este momento solo podemos usar una porción de esta
+
 Vemos el tamaño de nuestra shell en una consola normal
 
 ```bash
