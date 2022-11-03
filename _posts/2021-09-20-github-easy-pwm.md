@@ -5,7 +5,7 @@ excerpt: "En esta ocasión traigo mi primera herramienta propia, hecha totalment
 date: 2021-09-20
 classes: wide
 header:
-  teaser: /assets/images/github-tool-easy-pwm/WorkEnviroment.png
+  teaser: /assets/images/github-tool-easy-pwm/WorkEnvironment.png
   teaser_home_page: true
   icon: /assets/images/github.png
 categories:
@@ -63,6 +63,7 @@ Esta utilidad está pensada para que sea completamente automática, esto te perm
 - **zsh**
 
 ## Shortcuts
+
 | Acción | Shortcut |
 | -------- | -------- |
 | Cambiar de workspace específico | <kbd>Windows</kbd> + <kbd>[1\|2\|3\|4\|5\|6\|7\|8\|9\|0]</kbd> |
@@ -94,6 +95,7 @@ Esta utilidad está pensada para que sea completamente automática, esto te perm
 | Bajar volumen del sistema | <kbd>Fn</kbd> + <kbd>F2</kbd> |
 | Subir brillo del monitor | <kbd>Fn</kbd> + <kbd>F6</kbd> |
 | Bajar brillo del monitor | <kbd>Fn</kbd> + <kbd>F5</kbd> |
+
 
 <hr>
 <b>[CLONA Y USA EASY-PWM](https://github.com/Invertebr4do/EASY-PWM)</b>
