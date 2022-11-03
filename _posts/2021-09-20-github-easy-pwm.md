@@ -39,6 +39,10 @@ Esta utilidad está pensada para que sea completamente automática, esto te perm
 
 ![](https://github.com/Invertebr4do/EASY-PWM/blob/main/img/WorkEnvironment.png?raw=true)
 
+![](https://github.com/Invertebr4do/EASY-PWM/blob/main/img/WorkEnvironment2.png?raw=true)
+
+![](https://github.com/Invertebr4do/EASY-PWM/blob/main/img/rofi1.png?raw=true)
+
 ## Implementaciones
 - **kitty** *~»* [kovid goyal](https://sw.kovidgoyal.net/kitty/)
 - **neovim con nvchad** *~»* [nvchad](https://nvchad.com/)
@@ -84,7 +88,7 @@ Esta utilidad está pensada para que sea completamente automática, esto te perm
 | Resize de preselección | <kbd>Windows</kbd> + <kbd>Ctrl</kbd> + <kbd>[1\|2\|3\|4\|5\|6\|7\|8\|9\|0]</kbd> |
 | Cerrar preselección | <kbd>Windows</kbd> + <kbd>Ctrl</kbd> + <kbd>Space</kbd> |
 | Cambiar la ventana seleccionada a modo *Flotante* | <kbd>Windows</kbd> + <kbd>S</kbd> |
-| Cambiar la ventana seleccionada a modo *Terminal | <kbd>Windows</kbd> + <kbd>T</kbd> |
+| Cambiar la ventana seleccionada a modo *Terminal* | <kbd>Windows</kbd> + <kbd>T</kbd> |
 | Cambiar layout de la ventana seleccionada entre *Tiled* y *Monocle* | <kbd>Windows</kbd> + <kbd>M</kbd> |
 | Resize de ventanas flotantes | <kbd>Windows</kbd> + <kbd>Alt</kbd> + <kbd>⇦⇧⇩⇨</kbd> |
 | Mover ventanas flotantes | <kbd>Windows</kbd> + <kbd>Ctrl</kbd> + <kbd>⇦⇧⇩⇨</kbd> |
